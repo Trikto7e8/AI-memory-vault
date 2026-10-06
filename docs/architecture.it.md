@@ -11,7 +11,7 @@ Queste note definiscono una direzione da implementare e revisionare; non sono un
 3. **Vault e chiavi:** cifratura locale, sblocco, backup, recupero, associazione dei dispositivi e sincronizzazione.
 4. **Adattatori:** interfacce verso diversi modelli AI, motori vocali, ricerca e client mobili.
 
-Tutte le aree devono poter essere usate senza dipendere da un solo assistente o modello. Un adattatore riceve soltanto la richiesta e il contesto approvato; non ha accesso autonomo al vault o alle chiavi.
+Tutte le aree devono poter essere usate senza dipendere da un solo assistente o modello. Il nucleo passa all'adattatore solo la richiesta e il contesto approvato e non gli fornisce riferimenti al vault o chiavi. È un confine API, non una sandbox: il codice eseguito nella stessa origine JavaScript può comunque usare le API del browser, quindi lì devono girare solo adattatori fidati. Una futura integrazione con fornitori richiede un isolamento effettivo e un canale di messaggi ristretto e vincolato al consenso prima di poter dichiarare un confinamento tecnico.
 
 ## Identità persistente
 
@@ -23,7 +23,7 @@ Nome, descrizione e asset dell'avatar seguono lo stesso principio. Foto, modelli
 
 Una coppia di chiavi pubblica/privata non è una password. La chiave pubblica può essere condivisa; la privata deve restare segreta. I dati si cifrano con una chiave casuale simmetrica; poi si protegge una copia di quella chiave per ciascun dispositivo autorizzato tramite la sua chiave pubblica. La chiave privata corrispondente permette al dispositivo di recuperare la chiave dati.
 
-Una passphrase protegge localmente le chiavi private. Non è la chiave pubblica né la chiave del vault. Durante lo sblocco, il prototipo verifica che la chiave pubblica e quella privata nell'involucro cifrato formino una coppia. Ogni dispositivo deve avere coppie di chiavi distinte per cifratura e firma. Il servizio di sync non deve ricevere chiavi private o passphrase. L'associazione, il recupero, la revoca e la rotazione sono descritti nella [specifica di sync](sync-protocol.it.md) e restano da implementare e revisionare.
+Una passphrase protegge localmente le chiavi private. Non è la chiave pubblica né la chiave del vault. Durante lo sblocco e prima di cambiare la passphrase, il prototipo verifica che la chiave pubblica e quella privata nell'involucro cifrato formino una coppia. Ogni dispositivo deve avere coppie di chiavi distinte per cifratura e firma. Il servizio di sync non deve ricevere chiavi private o passphrase. L'associazione, il recupero, la revoca e la rotazione sono descritti nella [specifica di sync](sync-protocol.it.md) e restano da implementare e revisionare.
 
 ## Record categorizzati
 

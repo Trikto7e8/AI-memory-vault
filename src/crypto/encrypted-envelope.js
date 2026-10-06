@@ -33,6 +33,28 @@ function bytesEqual(left, right) {
   return difference === 0;
 }
 
+async function assertKeyPairMatches(privateKey, encodedPublicKey) {
+  const publicKey = await crypto.subtle.importKey(
+    "spki",
+    encodedPublicKey,
+    { name: "RSA-OAEP", hash: "SHA-256" },
+    false,
+    ["encrypt"],
+  );
+  const challenge = randomBytes(32);
+  let challengeCiphertext;
+  let recoveredChallenge;
+  try {
+    challengeCiphertext = new Uint8Array(await crypto.subtle.encrypt({ name: "RSA-OAEP" }, publicKey, challenge));
+    recoveredChallenge = new Uint8Array(await crypto.subtle.decrypt({ name: "RSA-OAEP" }, privateKey, challengeCiphertext));
+    if (!bytesEqual(challenge, recoveredChallenge)) throw new Error("The encrypted vault contains a mismatched public/private key pair.");
+  } finally {
+    challenge.fill(0);
+    challengeCiphertext?.fill(0);
+    recoveredChallenge?.fill(0);
+  }
+}
+
 function isBase64(value, minBytes, maxBytes) {
   if (typeof value !== "string" || value.length % 4 !== 0 || !/^[A-Za-z0-9+/]*={0,2}$/.test(value)) return false;
   const byteLength = Math.floor(value.length * 3 / 4) - (value.endsWith("==") ? 2 : value.endsWith("=") ? 1 : 0);
@@ -131,6 +153,7 @@ export async function createEnvelope(passphrase, snapshot, validateSnapshot) {
 
 /** Validate exact envelope shape and encoded sizes before expensive key operations. */
 export function validateEnvelope(envelope, maxPayloadBytes = MAX_BACKUP_BYTES) {
+  if (!Number.isSafeInteger(maxPayloadBytes) || maxPayloadBytes < 16 || maxPayloadBytes > MAX_BACKUP_BYTES) return false;
   return hasOnlyKeys(envelope, ["format", "schemaVersion", "kdf", "keyWrapping", "privateKeyEnvelope", "payload"])
     && hasOnlyKeys(envelope.kdf, ["name", "hash", "iterations", "salt"])
     && hasOnlyKeys(envelope.keyWrapping, ["name", "hash", "publicKey", "wrappedDataKey"])
@@ -166,25 +189,7 @@ export async function unlockEnvelope(envelope, passphrase, validateSnapshot) {
   } finally {
     privateBytes.fill(0);
   }
-  const publicKey = await crypto.subtle.importKey(
-    "spki",
-    fromBase64(envelope.keyWrapping.publicKey),
-    { name: "RSA-OAEP", hash: "SHA-256" },
-    false,
-    ["encrypt"],
-  );
-  const challenge = randomBytes(32);
-  let challengeCiphertext;
-  let recoveredChallenge;
-  try {
-    challengeCiphertext = new Uint8Array(await crypto.subtle.encrypt({ name: "RSA-OAEP" }, publicKey, challenge));
-    recoveredChallenge = new Uint8Array(await crypto.subtle.decrypt({ name: "RSA-OAEP" }, privateKey, challengeCiphertext));
-    if (!bytesEqual(challenge, recoveredChallenge)) throw new Error("The encrypted vault contains a mismatched public/private key pair.");
-  } finally {
-    challenge.fill(0);
-    challengeCiphertext?.fill(0);
-    recoveredChallenge?.fill(0);
-  }
+  await assertKeyPairMatches(privateKey, fromBase64(envelope.keyWrapping.publicKey));
   const dataKeyRaw = new Uint8Array(await crypto.subtle.decrypt({ name: "RSA-OAEP" }, privateKey, fromBase64(envelope.keyWrapping.wrappedDataKey)));
   let dataKey;
   try {
@@ -216,6 +221,8 @@ export async function changeEnvelopePassphrase(envelope, currentPassphrase, newP
     fromBase64(envelope.privateKeyEnvelope.iv),
   );
   try {
+    const privateKey = await crypto.subtle.importKey("pkcs8", privateBytes, { name: "RSA-OAEP", hash: "SHA-256" }, false, ["decrypt"]);
+    await assertKeyPairMatches(privateKey, fromBase64(envelope.keyWrapping.publicKey));
     const salt = randomBytes(16);
     const iv = randomBytes(12);
     const newWrappingKey = await deriveWrappingKey(newPassphrase, salt);

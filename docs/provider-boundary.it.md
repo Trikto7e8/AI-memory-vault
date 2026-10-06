@@ -8,7 +8,7 @@ Questa specifica descrive come memoria e identità dell'assistente possano resta
 
 1. **Vault personale:** ricordi categorizzati e profilo/identità portatile dell'assistente, cifrati quando bloccati.
 2. **Gate di contesto:** recupera localmente i ricordi pertinenti e li mostra prima della condivisione.
-3. **Adattatore del modello:** traduce la richiesta per il modello scelto. Non riceve chiavi né accesso autonomo al vault.
+3. **Adattatore del modello:** traduce la richiesta per il modello scelto. Il nucleo non gli passa chiavi o riferimenti al vault, ma questo è un confine API, non una sandbox: il codice caricato nella stessa origine JavaScript può comunque usare le API del browser. Qui devono essere eseguiti solo adattatori fidati; una futura integrazione con fornitori richiede un isolamento effettivo e un canale di messaggi ristretto e vincolato al consenso prima di poter dichiarare un confinamento tecnico.
 4. **Trasporto di sync:** in futuro scambia pacchetti cifrati tra dispositivi autorizzati.
 5. **Adattatori di identità:** collegano il profilo portatile ai motori voce/avatar disponibili. Non possiedono la memoria.
 

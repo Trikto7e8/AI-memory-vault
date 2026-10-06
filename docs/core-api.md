@@ -74,6 +74,7 @@ passphraseInput.value = "";
 ## Current boundaries
 
 - The browser adapter uses IndexedDB and Web Crypto; it is not a mobile-storage implementation.
+- Local retrieval uses exact lexical tokens, normalizes accents and case independently of the device locale, and ignores punctuation around words; it is not semantic search and makes no network request.
 - Backups are encrypted and manual. Automatic device sync, device enrollment, recovery, conflict handling, and rollback protection are not implemented.
 - The context API can prepare local previews and issue grants that are bound to one adapter, expire after five minutes, and can be consumed once. No model adapter is connected by this prototype.
 - Locking drops the session's plaintext references, but JavaScript cannot guarantee process-memory erasure.

@@ -8,7 +8,7 @@ This specification describes how memory and assistant identity can remain user-o
 
 1. **Personal vault:** categorized memories and a portable assistant profile/identity, encrypted while locked.
 2. **Context gate:** retrieves relevant memories locally and shows them before sharing.
-3. **Model adapter:** translates the request for the selected model. It receives no keys and has no autonomous vault access.
+3. **Model adapter:** translates the request for the selected model. The core passes it no keys or vault handle, but this is an API boundary, not a sandbox: code loaded in the same JavaScript origin can still use ambient browser APIs. Only trusted adapters may run there; a future provider integration needs a genuinely isolated execution boundary and a narrow, consent-bound message channel before claiming technical confinement.
 4. **Sync transport:** eventually exchanges encrypted packages between authorized devices.
 5. **Identity adapters:** connect the portable profile to available voice/avatar engines. They do not own memory.
 

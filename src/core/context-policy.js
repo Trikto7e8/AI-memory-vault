@@ -36,14 +36,15 @@ export function prepareContext(records, query, destination, options = {}) {
   }
   const now = options.now ?? new Date();
   if (!(now instanceof Date) || !Number.isFinite(now.getTime())) throw new Error("The local retrieval time is invalid.");
-  const terms = new Set(normalize(`${query.text} ${query.purpose}`).split(/\s+/).filter(Boolean));
+  const terms = new Set(tokenize(`${query.text} ${query.purpose}`));
+  const categories = query.categories?.map((category) => normalize(category));
   const limit = query.limit ?? 8;
 
   const selected = records
     .filter((record) => record.status === "approved")
     .filter((record) => !record.expiresAt || Date.parse(record.expiresAt) > now.getTime())
     .filter((record) => options.includeSensitive === true || record.sensitivity !== "sensitive")
-    .filter((record) => !query.categories?.length || query.categories.includes(record.category))
+    .filter((record) => !categories?.length || categories.includes(normalize(record.category)))
     .map((record) => ({ record, score: relevance(record, terms) }))
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score || b.record.updatedAt.localeCompare(a.record.updatedAt))
@@ -215,10 +216,10 @@ function freezeMemory(record) {
 }
 
 function relevance(record, terms) {
-  const title = normalize(record.title).split(/\s+/);
-  const category = normalize(record.category).split(/\s+/);
-  const tags = record.tags.flatMap((tag) => normalize(tag).split(/\s+/));
-  const content = normalize(record.content).split(/\s+/);
+  const title = tokenize(record.title);
+  const category = tokenize(record.category);
+  const tags = record.tags.flatMap(tokenize);
+  const content = tokenize(record.content);
   let score = 0;
   for (const term of terms) {
     if (title.includes(term)) score += 5;
@@ -230,7 +231,11 @@ function relevance(record, terms) {
 }
 
 function normalize(value) {
-  return value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
+  return value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+function tokenize(value) {
+  return normalize(value).match(/[\p{L}\p{N}]+/gu) ?? [];
 }
 
 function isTimestamp(value) {

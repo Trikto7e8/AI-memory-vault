@@ -11,7 +11,7 @@ These notes set a direction to implement and review; they are not a security cer
 3. **Vault and keys:** local encryption, unlock, backup, recovery, device enrollment, and synchronization.
 4. **Adapters:** interfaces to different AI models, voice engines, search, and mobile clients.
 
-Every concern must work without depending on one assistant or model. An adapter receives only the request and approved context; it has no autonomous access to the vault or keys.
+Every concern must work without depending on one assistant or model. The core passes an adapter only the request and approved context and gives it no vault handle or keys. This is an API boundary, not a sandbox: code running in the same JavaScript origin can still use ambient browser APIs, so only trusted adapters may run there. A future provider integration needs a genuinely isolated execution boundary and a narrow, consent-bound message channel before claiming technical confinement.
 
 ## Persistent identity
 
@@ -23,7 +23,7 @@ The same principle applies to the assistant's name, description, and avatar asse
 
 A public/private key pair is not a password. The public key can be shared; the private key must remain secret. Data is encrypted with a random symmetric key; a copy of that key is then wrapped for each authorized device using its public key. The corresponding private key lets the device recover the data key.
 
-A passphrase protects private keys locally. It is neither a public key nor the vault key. On unlock, the prototype verifies that the public and private keys in the encrypted envelope form a pair. Each device must have distinct key pairs for encryption and signing. The sync service must never receive private keys or passphrases. Enrollment, recovery, revocation, and rotation are described in the [sync specification](sync-protocol.md) and remain to be implemented and reviewed.
+A passphrase protects private keys locally. It is neither a public key nor the vault key. On unlock and before changing the passphrase, the prototype verifies that the public and private keys in the encrypted envelope form a pair. Each device must have distinct key pairs for encryption and signing. The sync service must never receive private keys or passphrases. Enrollment, recovery, revocation, and rotation are described in the [sync specification](sync-protocol.md) and remain to be implemented and reviewed.
 
 ## Categorized records
 
