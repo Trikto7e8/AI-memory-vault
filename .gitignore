@@ -1,0 +1,27 @@
+# Local user data and secrets
+.env
+.env.*
+!.env.example
+*.vault
+*.vault.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Audio and personal exports
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac
+openai-data-export*/
+personal-data/
+
+# Local tooling
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+build/
+coverage/
