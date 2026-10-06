@@ -6,7 +6,7 @@ Questo documento è una prima mappa dei confini di fiducia, non una certificazio
 
 ## Dati da proteggere
 
-- Ricordi e allegati, categorie, tag, provenienza, date e scadenze.
+- Ricordi personali, note vocali e allegati, categorie, tag, provenienza, date e scadenze.
 - Profilo dell'assistente: preferenze, personalità, limiti e impostazioni vocali.
 - Modelli vocali e avatar che danno continuità all'identità dell'assistente: asset separati e potenzialmente molto sensibili.
 - Chiavi del vault, chiavi private dei dispositivi, passphrase e materiale di recupero.

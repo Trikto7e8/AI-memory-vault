@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "AI Memoria Vault portable snapshot v1",
+  "title": "AI Memory Vault portable snapshot v1",
   "description": "Plaintext shape used only in unlocked device memory. Persist and transfer it only inside an encrypted envelope.",
   "type": "object",
   "additionalProperties": false,

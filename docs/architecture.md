@@ -6,8 +6,8 @@ These notes set a direction to implement and review; they are not a security cer
 
 ## Separate but portable concerns
 
-1. **Personal memory:** categorized records, provenance, dates, sensitivity, and expiry.
-2. **Assistant identity:** name, personality, instructions, boundaries, style, voice/timbre, and avatar.
+1. **Personal memory:** categorized text memories and, in the future, personal voice notes with provenance, dates, sensitivity, and expiry.
+2. **Profile for the assistant the user usually uses:** AI preferences and settings for its name, personality, behavior, instructions, boundaries, voice/timbre, and avatar.
 3. **Vault and keys:** local encryption, unlock, backup, recovery, device enrollment, and synchronization.
 4. **Adapters:** interfaces to different AI models, voice engines, search, and mobile clients.
 
@@ -15,7 +15,7 @@ Every concern must work without depending on one assistant or model. The core pa
 
 ## Persistent identity
 
-The assistant profile travels with memory and describes its personality and identity. For voice, store descriptive preferences (timbre, accent, pace) and stable identifiers that a compatible engine can reuse. Preserving the same timbre across engines or devices may require treating a voice model as a separate, private, encrypted asset that transfers only with user consent. Descriptions and IDs alone cannot guarantee identical reproduction.
+The assistant profile travels with memory and describes its personality, behavior, and identity. Personal voice notes are the user's memories; they must not be confused with the settings for the voice the assistant speaks with. For that voice, store descriptive preferences (timbre, accent, pace) and stable identifiers that a compatible engine can reuse. Preserving the same timbre across engines or devices may require treating a voice model as a separate, private, encrypted asset that transfers only with user consent. Descriptions and IDs alone cannot guarantee identical reproduction.
 
 The same principle applies to the assistant's name, description, and avatar assets. Images, voice models, and other assets are not text memories and must not be put in issues, examples, or public commits. Cloning is optional and requires rights and specific consent from the represented person.
 
@@ -27,7 +27,7 @@ A passphrase protects private keys locally. It is neither a public key nor the v
 
 ## Categorized records
 
-Each memory has a stable ID, versioned schema, category, title, content, tags, provenance, dates, status, and sensitivity level. Media attachments are separate encrypted assets referenced by IDs, not local paths or public URLs. A conversation-derived suggestion remains under review until approved by the user. Corrections and deletion are explicit.
+Each memory has a stable ID, versioned schema, category, title, content, tags, provenance, dates, status, and sensitivity level. In the future, a voice note may be a separate encrypted audio asset referenced by the memory; the current prototype supports text only and does not store audio. Attachments must not be represented by local paths or public URLs. A conversation-derived suggestion remains under review until approved by the user. Corrections and deletion are explicit.
 
 The runtime entry point [`src/index.js`](../src/index.js) exposes the portable core: provider-independent memory operations and one shared v1 snapshot validator. An encrypted session combines create/unlock, reads, serialized writes, local previews, passphrase changes, backup, and locking over a replaceable storage interface. Atomic creation and compare-and-swap updates detect stale local sessions instead of silently overwriting concurrent changes. The store handles encrypted-envelope bytes only; the reusable IndexedDB adapter is exported from the core, while mobile storage still needs a platform-specific implementation. The adapter also reads legacy envelope objects saved by the earlier prototype by normalizing them to JSON bytes. Imports require the valid passphrase and, when replacing an existing vault, explicit user confirmation.
 

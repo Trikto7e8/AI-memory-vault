@@ -6,7 +6,7 @@ This is an initial map of trust boundaries, not a certification. The current pro
 
 ## Data to protect
 
-- Memories and attachments, categories, tags, provenance, dates, and expiry.
+- Personal memories, voice notes and attachments, categories, tags, provenance, dates, and expiry.
 - Assistant profile: preferences, personality, boundaries, and voice settings.
 - Voice models and avatars that preserve assistant identity: separate and potentially highly sensitive assets.
 - Vault keys, device private keys, passphrases, and recovery material.

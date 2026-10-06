@@ -1,17 +1,18 @@
-# AI Memoria Vault
+# AI Memory Vault
 
-**The personal, portable memory of your AI assistant.**
+**Personal, portable memory for your AI assistant.**
 
 [English](README.md) | [Italiano](README.it.md)
 
-AI Memoria Vault is an open-source project for carrying the memory and identity of your AI assistant/agent: user-selected memories, personality, style, a recognizable voice, and an avatar. The goal is to find the same assistant across devices and use different models without tying its memory to one provider.
+AI Memory Vault is an open-source project for keeping, under the user's control, AI preferences, personal memories, and voice notes, together with voice, personality, and behavior settings for the AI assistant they usually use. The memory is designed to work locally and travel with the user across devices, independently of the selected model. Users should be able to switch AI/LLM models without losing the memories kept in the vault or the sense of familiarity they have built with their assistant. Future synchronization is designed to transfer encrypted data only, so the storage service cannot read its contents; automatic synchronization is not implemented yet.
 
 > The repository includes an experimental local prototype that has not been reviewed or audited. Use synthetic data only; do not enter real personal data.
 
 ## What we want to build
 
-- User-curated, categorized personal memory.
-- A portable assistant profile: personality, instructions, boundaries, and preferences.
+- User-curated, categorized personal memory, including AI preferences and personal voice notes.
+- The ability to change AI/LLM models without losing the memory or the sense of familiarity built with the assistant.
+- A portable profile for the assistant the user usually works with: recognizable voice, personality, behavior, instructions, boundaries, and preferences.
 - A recognizable assistant identity: voice/timbre and avatar, carried with the profile.
 - A format independent of models and providers, for local, free, or commercial models.
 - Cross-device synchronization with end-to-end encryption, explicit device enrollment, and private keys kept under the user's control.
@@ -32,7 +33,7 @@ The prototype automatically locks the vault after ten minutes without interactio
 
 While unlocked, you can change the passphrase. The app re-encrypts the locally stored private-key envelope and leaves the vault data key and encrypted memory payload unchanged. Previously exported backups still require their original passphrase; export a fresh backup after changing it. This is not device-key rotation.
 
-The [`app/`](app/) folder contains a local web prototype to create, search, edit, approve, archive, and delete memories; save personality and voice-identity settings; generate a local preview of relevant memories; and export/import an encrypted backup. The preview does not contact models or external services. The format does not depend on a model. Automatic sync, model adapters, actual avatar/voice-model portability, and multi-format import are not implemented yet.
+The [`app/`](app/) folder contains a local web prototype to create, search, edit, approve, archive, and delete text memories; save assistant personality and voice preferences; generate a local preview; and export/import an encrypted backup. It does not yet support voice notes or audio attachments. The preview does not contact models or external services. The format does not depend on a model. Automatic sync, model adapters, actual avatar/voice-model portability, and multi-format import are not implemented yet.
 
 On Windows, start a static server from the repository root:
 

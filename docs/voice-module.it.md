@@ -2,7 +2,7 @@
 
 [English](voice-module.md) | [Italiano](voice-module.it.md)
 
-La voce di cui parla questo progetto è quella con cui parla l'assistente: vogliamo che il suo timbro, la voce riconoscibile e l'avatar possano accompagnarlo tra dispositivi e modelli.
+Questo modulo riguarda la voce con cui parla l'assistente: l'obiettivo è portarne timbro, voce riconoscibile e avatar tra dispositivi e modelli. Le note vocali personali sono invece ricordi dell'utente; il prototipo non archivia note vocali né modelli vocali.
 
 ## Dati di identità e asset distinti
 

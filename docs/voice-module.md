@@ -2,7 +2,7 @@
 
 [English](voice-module.md) | [Italiano](voice-module.it.md)
 
-The voice in this project is the voice the assistant speaks with: the goal is to carry its timbre, recognizable voice, and avatar across devices and models.
+This module concerns the voice the assistant speaks with: the goal is to carry its timbre, recognizable voice, and avatar across devices and models. Personal voice notes are the user's memories; the prototype does not store voice notes or voice models.
 
 ## Identity settings and separate assets
 

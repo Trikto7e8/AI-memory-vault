@@ -25,7 +25,7 @@ Il modello delle minacce deve spiegare quali di questi rischi il prodotto può r
 5. Documentare i metadati visibili durante la sincronizzazione e decidere se cifrare o mascherare nomi, date e dimensioni degli oggetti.
 6. Decidere come funzionano backup cifrati e risoluzione dei conflitti.
 7. Definire con precisione cosa vede l’utente e approva prima di inviare contenuti privati a un fornitore esterno.
-8. Stabilire regole per audio, trascrizioni, rappresentazioni vettoriali e dati vocali derivati.
+8. Stabilire regole distinte per note vocali personali, registrazioni/campioni usati per la voce dell'assistente, trascrizioni, rappresentazioni vettoriali e dati vocali derivati.
 
 ## Requisiti operativi
 

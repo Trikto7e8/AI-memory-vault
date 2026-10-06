@@ -6,13 +6,14 @@ Questa roadmap segue lo sviluppo di un assistente personale di IA portatile. Le 
 
 ## Stato attuale
 
-- [x] Prototipo browser locale per ricordi categorizzati e preferenze comportamentali/vocali.
+- [x] Prototipo browser locale per ricordi testuali categorizzati e preferenze comportamentali/vocali dell'assistente.
 - [x] Recupero lessicale locale e anteprima dei ricordi approvati; dati sensibili esclusi per impostazione predefinita.
 - [x] API condivisa di sessione cifrata sopra un'interfaccia che persiste solo involucri cifrati.
 - [x] Contratti indipendenti dal fornitore per memoria e adattatori ai modelli.
 - [x] Prototipo di backup cifrato manuale e importazione.
 - [x] Bozza bilingue del modello delle minacce e del progetto di sync multi-dispositivo.
 - [ ] Revisione indipendente della crittografia browser; fino ad allora solo dati sintetici.
+- [ ] Supporto a note vocali personali come asset audio cifrati separati dai campioni usati per la voce dell'assistente.
 - [ ] Schema completo dell'identità portatile: nome, persona, identità vocale, avatar e riferimenti protetti agli asset.
 - [ ] Associazione di chiavi per dispositivo, sync cifrata, recupero, conflitti, revoca e protezione dal rollback.
 - [ ] Adattatori ai modelli con autorizzazione esatta per ogni richiesta remota; il prototipo attuale non invia richieste ad alcun modello.
@@ -24,6 +25,7 @@ Questa roadmap segue lo sviluppo di un assistente personale di IA portatile. Le 
 ### 1. Memoria e identità portatile
 
 - Versionare record per memoria categorizzata, provenienza, scadenza, sensibilità e revisione dell'utente.
+- Aggiungere le note vocali come ricordi dell'utente con consenso, cifratura locale e provenienza esplicita.
 - Tenere comportamento e identità dell'assistente separati dai fatti, ma nello stesso vault portatile.
 - Verificare la continuità in una nuova conversazione, su un altro dispositivo e con un modello differente.
 

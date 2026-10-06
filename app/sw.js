@@ -1,4 +1,5 @@
-const CACHE_PREFIX = "ai-memoria-vault-shell-";
+const CACHE_PREFIX = "ai-memory-vault-shell-";
+const LEGACY_CACHE_PREFIX = "ai-memoria-vault-shell-";
 const CACHE_NAME = `${CACHE_PREFIX}v11`;
 const LOCAL_ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./icon.svg", "../src/index.js", "../src/core/memory-operations.js", "../src/core/context-policy.js", "../src/core/adapter-runner.js", "../src/core/encrypted-vault.js", "../src/core/snapshot-validation.js", "../src/crypto/encrypted-envelope.js", "../src/storage/indexeddb-vault-store.js"];
 
@@ -9,7 +10,7 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(caches.keys().then((keys) => Promise.all(
-    keys.filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME).map((key) => caches.delete(key)),
+    keys.filter((key) => (key.startsWith(CACHE_PREFIX) || key.startsWith(LEGACY_CACHE_PREFIX)) && key !== CACHE_NAME).map((key) => caches.delete(key)),
   )));
   self.clients.claim();
 });

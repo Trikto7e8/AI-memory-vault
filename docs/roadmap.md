@@ -6,13 +6,14 @@ This roadmap tracks work toward a portable personal AI assistant. Security-sensi
 
 ## Current status
 
-- [x] Local browser prototype for categorized memories and behavior/voice preferences.
+- [x] Local browser prototype for categorized text memories and assistant behavior/voice preferences.
 - [x] Local lexical retrieval and preview of approved memories; sensitive data excluded by default.
 - [x] Shared encrypted-session API over an interface that persists encrypted envelopes only.
 - [x] Provider-independent memory and model-adapter contracts.
 - [x] Encrypted manual backup and import prototype.
 - [x] Initial bilingual threat model and multi-device sync design.
 - [ ] Independent review of browser cryptography; use synthetic data until reviewed.
+- [ ] Support personal voice notes as separate encrypted audio assets, distinct from samples used for the assistant's voice.
 - [ ] Complete portable assistant identity schema: name, persona, voice identity, avatar, and protected asset references.
 - [ ] Device-specific key enrollment, encrypted sync, recovery, conflict resolution, revocation, and rollback protection.
 - [ ] Model adapters with exact authorization for every remote request; the current prototype sends requests to no model.
@@ -24,6 +25,7 @@ This roadmap tracks work toward a portable personal AI assistant. Security-sensi
 ### 1. Portable assistant identity and memory
 
 - Version records for categorized memory, provenance, expiry, sensitivity, and user review.
+- Add personal voice notes as user-owned memories with consent, local encryption, and explicit provenance.
 - Keep assistant behavior and identity separate from factual memories but inside the same portable vault.
 - Verify continuity across a fresh conversation, another device, and a different model.
 

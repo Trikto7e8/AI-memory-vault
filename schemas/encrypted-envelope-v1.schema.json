@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "AI Memoria Vault encrypted envelope v1",
+  "title": "AI Memory Vault encrypted envelope v1",
   "description": "Portable encrypted backup envelope. The plaintext snapshot must never be stored or transferred outside this envelope.",
   "type": "object",
   "additionalProperties": false,

@@ -6,7 +6,7 @@ Questa specifica descrive come memoria e identità dell'assistente possano resta
 
 ## Componenti
 
-1. **Vault personale:** ricordi categorizzati e profilo/identità portatile dell'assistente, cifrati quando bloccati.
+1. **Vault personale:** preferenze IA, ricordi categorizzati (incluse in futuro note vocali personali) e profilo portatile dell'assistente abitualmente usato, cifrati quando il vault è bloccato.
 2. **Gate di contesto:** recupera localmente i ricordi pertinenti e li mostra prima della condivisione.
 3. **Adattatore del modello:** traduce la richiesta per il modello scelto. Il nucleo non gli passa chiavi o riferimenti al vault, ma questo è un confine API, non una sandbox: il codice caricato nella stessa origine JavaScript può comunque usare le API del browser. Qui devono essere eseguiti solo adattatori fidati; una futura integrazione con fornitori richiede un isolamento effettivo e un canale di messaggi ristretto e vincolato al consenso prima di poter dichiarare un confinamento tecnico.
 4. **Trasporto di sync:** in futuro scambia pacchetti cifrati tra dispositivi autorizzati.
@@ -33,7 +33,7 @@ Il client crea una query pubblica senza aggiungere automaticamente dati privati,
 
 Il profilo portatile comprende personalità e preferenze, non solo istruzioni per un singolo modello. Nome, descrizione, avatar, timbro, lingua, ritmo e ID voce/motore costituiscono l'identità dell'assistente. Ogni adattatore traduce le impostazioni secondo le capacità disponibili; la stessa descrizione non garantisce identico risultato.
 
-Un modello vocale personale o un asset avatar sono file privati separati dai ricordi. Per trasferirli servono asset cifrati, sync autorizzata e consenso specifico. Audio dell'utente, campioni vocali o dati di terzi non vengono raccolti come funzione di memoria generale.
+Le note vocali personali sono ricordi dell'utente, ma il prototipo non archivia note o allegati audio. I campioni vocali usati per creare o adattare la voce dell'assistente sono asset diversi: non vengono raccolti automaticamente e richiedono diritti e consenso separati. Un modello vocale personale o un asset avatar è distinto sia dai ricordi sia dalle note vocali; per trasferirlo servono cifratura, sync autorizzata e consenso specifico.
 
 ## Sync e dati visibili
 

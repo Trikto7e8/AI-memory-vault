@@ -2,7 +2,7 @@
 
 [English](CONTRIBUTING.md) | [Italiano](CONTRIBUTING.it.md)
 
-Grazie per voler contribuire ad AI Memoria Vault. Il progetto ha un prototipo sperimentale e cerca aiuto su formato portabile, UX locale, accessibilità, interoperabilità e revisione di sicurezza.
+Grazie per voler contribuire ad AI Memory Vault. Il progetto ha un prototipo sperimentale e cerca aiuto su formato portabile, UX locale, accessibilità, interoperabilità e revisione di sicurezza.
 
 ## Prima di proporre una modifica
 

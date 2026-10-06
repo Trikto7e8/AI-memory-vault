@@ -76,6 +76,7 @@ passphraseInput.value = "";
 - L'adattatore browser usa IndexedDB e Web Crypto; non implementa lo storage mobile.
 - Il recupero locale usa corrispondenze lessicali esatte, normalizza accenti e maiuscole in modo indipendente dalle impostazioni locali del dispositivo e ignora la punteggiatura attorno alle parole; non è una ricerca semantica e non effettua richieste di rete.
 - I backup sono cifrati e manuali. Non sono implementati sync automatica, associazione dei dispositivi, recupero, gestione dei conflitti o protezione dal rollback.
+- Lo schema attuale conserva ricordi testuali e impostazioni del profilo; note vocali e allegati audio non sono ancora supportati.
 - L'API del contesto può creare anteprime locali e grant vincolati a un solo adattatore, con scadenza di cinque minuti e consumo singolo. Il prototipo non è collegato ad alcun adattatore di modelli.
 - Il blocco rimuove i riferimenti in chiaro della sessione, ma JavaScript non può garantire la cancellazione della memoria del processo.
 - Non usare dati personali reali finché crittografia e client non saranno revisionati in modo indipendente.

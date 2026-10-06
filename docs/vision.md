@@ -4,7 +4,7 @@
 
 ## Purpose
 
-AI Memoria Vault is the personal, portable memory of an AI assistant/agent that the user experiences as their own. The memory preserves the user's memories and preferences together with the assistant's personality and identity—including a recognizable voice and avatar—so they can be carried across devices and used with different models. The user can switch LLM/AI models without losing their memory, the familiarity and rapport built with their assistant, or the context curated over time.
+AI Memory Vault is an open project for keeping, under the user's control, AI preferences, personal memories, and voice notes, together with voice, personality, and behavior settings for the AI assistant they usually use. The memory is designed to work locally and travel with the user across devices, independently of the selected model. Users should be able to switch LLM/AI models without losing their stored memories or the sense of familiarity and rapport built with their assistant. Future synchronization is designed to transfer encrypted data only, so the storage service cannot read its contents; it is not implemented yet.
 
 The central proof is simple: I save a project and my preferences, start a fresh session on another device and another model, retrieve relevant context, and can inspect, correct, or delete what was recalled.
 
@@ -18,7 +18,7 @@ Categories help organize information without creating hidden profiles: projects,
 
 The profile should carry a coherent identity: name, description, personality, style, voice/timbre, avatar, and identifiers compatible with installed engines. A voice description helps but cannot reproduce the same voice by itself. Preserving timbre across devices may require a private encrypted voice model, installed locally or synchronized as an encrypted asset when the user authorizes it.
 
-The assistant's voice is not a recording or voice note from the user. A voice/cloned model and avatar images are assets separate from memory records, optional, and governed by specific consent, rights, encryption, sync, and deletion. No asset is uploaded or used for training without explicit authorization.
+Personal voice notes are memories belonging to the user; timbre settings and a voice model describe the voice the assistant speaks with. They are distinct kinds of content. The current prototype does not store voice notes or voice models. Any future cloned voice model and avatar images are assets separate from memory records, optional, and governed by specific consent, rights, encryption, sync, and deletion. No asset is uploaded or used for training without explicit authorization.
 
 ## Model independence and portability
 
@@ -33,6 +33,7 @@ Memory is searched on-device. For web lookups, the client previews the exact que
 ## Initial goals
 
 - A persistent, categorized local core.
+- AI preferences and personal voice notes stored locally under the user's control.
 - A portable profile for the assistant's personality and identity.
 - Transferable encrypted backup and multi-device encrypted sync after review.
 - Swappable adapters for local or remote models with explicit approval.

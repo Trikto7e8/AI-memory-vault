@@ -2,7 +2,7 @@
 
 [English](CONTRIBUTING.md) | [Italiano](CONTRIBUTING.it.md)
 
-Thank you for contributing to AI Memoria Vault. The project has an experimental prototype and welcomes help with portable formats, local UX, accessibility, interoperability, and security review.
+Thank you for contributing to AI Memory Vault. The project has an experimental prototype and welcomes help with portable formats, local UX, accessibility, interoperability, and security review.
 
 ## Before proposing a change
 

@@ -1,7 +1,7 @@
 {
-  "name": "AI Memoria Vault",
-  "short_name": "AI Memoria",
-  "description": "Memoria e identità personale e portatile del tuo assistente di IA",
+  "name": "AI Memory Vault",
+  "short_name": "AI Memory",
+  "description": "Memoria personale e impostazioni portatili per il tuo assistente di IA",
   "lang": "it",
   "start_url": "./",
   "scope": "./",

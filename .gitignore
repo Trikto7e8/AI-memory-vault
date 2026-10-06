@@ -13,12 +13,17 @@
 
 # Private media and assistant exports
 *.wav
+*.aif
+*.aiff
 *.mp3
 *.m4a
+*.amr
+*.3gp
 *.aac
 *.flac
 *.ogg
 *.opus
+*.wma
 *.webm
 *.png.private
 *.avatar.private
@@ -32,7 +37,7 @@ personal-data/
 private-assets/
 assistant-exports/
 conversation-exports/
-openai-data-export*/
+*-data-export*/
 exports/
 data-export*.zip
 *.zip

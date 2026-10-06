@@ -487,7 +487,7 @@ byId("export-button").addEventListener("click", async () => {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `ai-memoria-vault-${new Date().toISOString().slice(0, 10)}.mvault`;
+    anchor.download = `ai-memory-vault-${new Date().toISOString().slice(0, 10)}.mvault`;
     anchor.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     vaultStatus.textContent = "Backup cifrato esportato. Conservalo in un luogo sicuro.";
@@ -513,7 +513,7 @@ byId("import-file").addEventListener("change", async (event) => {
   try {
     if (file.size > MAX_BACKUP_BYTES) throw new Error("Il backup supera il limite di 25 MB previsto da questo prototipo.");
     const envelope = JSON.parse(await file.text());
-    if (!validateEnvelope(envelope)) throw new Error("Il file non sembra un backup cifrato AI Memoria Vault.");
+    if (!validateEnvelope(envelope)) throw new Error("Il file non sembra un backup cifrato AI Memory Vault.");
     const current = await readEnvelope();
     pendingImportedEnvelope = envelope;
     setLockMode(Boolean(current), true);

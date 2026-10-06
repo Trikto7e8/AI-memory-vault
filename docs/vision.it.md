@@ -4,7 +4,7 @@
 
 ## Scopo
 
-AI Memoria Vault è la memoria personale e portatile di un assistente/agente di IA che l'utente sente come proprio. La memoria conserva i ricordi e le preferenze dell'utente, insieme alla personalità e all'identità dell'assistente — inclusi voce riconoscibile e avatar — così da ritrovarli su dispositivi diversi e usarli con modelli differenti. L'utente può cambiare modello LLM/AI senza perdere la memoria né la confidenza costruita con il proprio assistente e il contesto curato nel tempo.
+AI Memory Vault è un progetto aperto per custodire, sotto il controllo dell’utente, preferenze relative all’IA, ricordi personali e note vocali, insieme alle impostazioni di voce, personalità e comportamento dell’assistente di IA che usa abitualmente. La memoria è progettata per funzionare localmente e accompagnare l’utente sui suoi dispositivi, senza dipendere dal modello scelto. L’utente potrà cambiare modello LLM/IA senza perdere i ricordi conservati né la confidenza costruita con il proprio assistente. La futura sincronizzazione è progettata per trasferire solo dati cifrati, in modo che il servizio di archiviazione non possa leggerne i contenuti; non è ancora implementata.
 
 La prova centrale è semplice: salvo un progetto e le mie preferenze, apro una nuova sessione su un altro dispositivo e con un altro modello, ritrovo il contesto pertinente e posso verificare, correggere o cancellare ciò che è stato recuperato.
 
@@ -18,7 +18,7 @@ Le categorie servono a organizzare, non a costruire profili nascosti: progetti, 
 
 Il profilo deve poter trasportare un'identità coerente: nome, descrizione, personalità, stile, voce/timbro, avatar e identificativi compatibili con i motori installati. Una descrizione vocale aiuta, ma non basta a riprodurre la stessa voce. Per mantenere il timbro tra dispositivi può servire un modello vocale privato cifrato, installato localmente o sincronizzato come asset cifrato quando l'utente lo autorizza.
 
-La voce dell'assistente non è una registrazione o una nota vocale dell'utente. Un modello vocale/clonato e le immagini/avatar sono asset separati dai record di memoria, facoltativi e soggetti a consenso, diritti, cifratura, sincronizzazione e cancellazione specifici. Nessun asset viene caricato o usato per addestramento senza autorizzazione esplicita.
+Le note vocali personali sono ricordi dell’utente; le impostazioni di timbro e il modello vocale descrivono invece la voce con cui parla l’assistente. Sono contenuti distinti. Il prototipo attuale non archivia note vocali né modelli vocali. Un eventuale modello vocale/clonato e le immagini/avatar sono asset separati dai record di memoria, facoltativi e soggetti a consenso, diritti, cifratura, sincronizzazione e cancellazione specifici. Nessun asset viene caricato o usato per addestramento senza autorizzazione esplicita.
 
 ## Indipendenza dai modelli e portabilità
 
@@ -33,6 +33,7 @@ La memoria viene cercata sul dispositivo. Per interrogare il web, il client most
 ## Obiettivi iniziali
 
 - Un nucleo locale persistente e categorizzato.
+- Preferenze IA e note vocali personali conservate localmente e sotto il controllo dell’utente.
 - Un profilo portatile di personalità e identità dell'assistente.
 - Backup cifrato trasferibile e sync cifrata multi-dispositivo dopo revisione.
 - Adattatori intercambiabili per modelli locali o remoti con approvazione esplicita.

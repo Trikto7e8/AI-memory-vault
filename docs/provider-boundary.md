@@ -6,7 +6,7 @@ This specification describes how memory and assistant identity can remain user-o
 
 ## Components
 
-1. **Personal vault:** categorized memories and a portable assistant profile/identity, encrypted while locked.
+1. **Personal vault:** AI preferences, categorized memories (including future personal voice notes), and a portable profile for the assistant the user usually works with, encrypted while locked.
 2. **Context gate:** retrieves relevant memories locally and shows them before sharing.
 3. **Model adapter:** translates the request for the selected model. The core passes it no keys or vault handle, but this is an API boundary, not a sandbox: code loaded in the same JavaScript origin can still use ambient browser APIs. Only trusted adapters may run there; a future provider integration needs a genuinely isolated execution boundary and a narrow, consent-bound message channel before claiming technical confinement.
 4. **Sync transport:** eventually exchanges encrypted packages between authorized devices.
@@ -33,7 +33,7 @@ The client creates a public query without automatically adding private data, pre
 
 The portable profile includes personality and preferences, not just instructions for one model. Name, description, avatar, timbre, language, pace, and voice/engine ID make up assistant identity. Each adapter translates settings according to available capabilities; the same description does not guarantee identical output.
 
-A personal voice model or avatar asset is a private file separate from memories. Portability requires encrypted assets, authorized sync, and specific consent. User recordings, voice samples, or third-party data are not collected as a general memory feature.
+Personal voice notes are the user's memories, but the prototype does not store voice notes or audio attachments. Samples used to create or adapt the assistant's voice are different assets: they are never collected automatically and require separate rights and consent. A personal voice model or avatar is distinct from both memories and voice notes; portability requires encryption, authorized sync, and specific consent.
 
 ## Sync and visible data
 

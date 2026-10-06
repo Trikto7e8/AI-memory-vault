@@ -25,7 +25,7 @@ The threat model must state which of these the product can mitigate and which it
 5. Document visible sync metadata and whether filenames, timestamps, and object sizes are encrypted or padded.
 6. Decide how encrypted backups and conflict resolution work.
 7. Define exactly what the user sees and approves before any private content is sent to an external provider.
-8. Set separate rights, consent, encryption, transfer, and deletion rules for voice models and avatar assets that form the assistant's identity.
+8. Set separate rights, consent, encryption, transfer, and deletion rules for personal voice notes, recordings/samples used for the assistant's voice, transcripts, embeddings, and derived voice data.
 
 ## Operational requirements
 
