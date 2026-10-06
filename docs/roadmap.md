@@ -1,46 +1,54 @@
-# Roadmap draft
+# Roadmap
 
 [English](roadmap.md) | [Italiano](roadmap.it.md)
 
-This is a proposal for discussion, not a promise about delivery dates.
+This roadmap tracks work toward a portable personal AI assistant. Security-sensitive milestones require review; the current prototype is for synthetic data only.
 
-## 0. Agree on the boundaries
+## Current status
 
-- Confirm the project purpose and relationship to Solfivia.
-- Agree on initial memory categories and the rule that users review suggestions before they become durable memories.
-- Publish the threat model and define what end-to-end encryption will and will not mean.
-- Choose an open-source license and contribution process.
-- Decide supported platforms and what “portable” must mean for the first release.
+- [x] Local browser prototype for categorized text memories and assistant behavior/voice preferences.
+- [x] Local lexical retrieval and preview of approved memories; sensitive data excluded by default.
+- [x] Shared encrypted-session API over an interface that persists encrypted envelopes only.
+- [x] Provider-independent memory and model-adapter contracts.
+- [x] Encrypted manual backup and import prototype.
+- [x] Initial bilingual threat model and multi-device sync design.
+- [ ] Independent review of browser cryptography; use synthetic data until reviewed.
+- [ ] Support personal voice notes as separate encrypted audio assets, distinct from samples used for the assistant's voice.
+- [ ] Complete portable assistant identity schema: name, persona, voice identity, avatar, and protected asset references.
+- [ ] Device-specific key enrollment, encrypted sync, recovery, conflict resolution, revocation, and rollback protection.
+- [ ] Model adapters with exact authorization for every remote request; the current prototype sends requests to no model.
+- [ ] Local, reviewable, multi-format conversation importer.
+- [ ] Encrypted asset store for optional voice models and avatars, with separate consent and portability controls.
 
-## 1. Local data model
+## Milestones
 
-- Define a versioned schema for memories, provenance, timestamps, user preferences, and behavior settings.
-- Prototype the “save one project, retrieve it in a fresh conversation, inspect and correct it” continuity test.
-- Specify user review, correction, deletion, and retention flows.
-- Create synthetic example data and migration rules.
+### 1. Portable assistant identity and memory
 
-## 2. Local vault
+- Version records for categorized memory, provenance, expiry, sensitivity, and user review.
+- Add personal voice notes as user-owned memories with consent, local encryption, and explicit provenance.
+- Keep assistant behavior and identity separate from factual memories but inside the same portable vault.
+- Verify continuity across a fresh conversation, another device, and a different model.
 
-- Select an established cryptographic library and write a reviewable cryptographic design.
-- Implement local create, unlock, lock, export, import, backup, and recovery flows.
-- Verify that secrets and private content do not enter logs, telemetry, or crash reports.
-- Obtain independent security review before using real personal data.
+### 2. Local encrypted vault
 
-## 3. Device portability and sync
+- Review the cryptographic design and key management.
+- Preserve local create, unlock, lock, edit, delete, backup, import, and recovery flows.
+- Keep private content out of logs, telemetry, crash reports, and public repository data.
 
-- Define encrypted vault transfer between devices.
-- Design device enrollment, revocation, conflict handling, backups, and recovery.
-- Keep decryption keys out of the sync service and document remaining metadata.
+### 3. Device sync and portability
 
-## 4. Assistant integrations
+- Enroll an independent key pair for each device, approved by an existing trusted device.
+- Encrypt and authenticate every revision; preserve branches and conflicts instead of silent last-write-wins.
+- Design recovery, key rotation, device revocation, anti-replay/rollback, and residual metadata.
 
-- Define a permissioned interface for retrieving selected memories.
-- Keep local retrieval available without network access.
-- Preview the exact context and destination before sending anything to an external model or search provider.
-- Add local model and search integrations where practical.
+### 4. Model and search adapters
 
-## 5. Audio
+- Keep retrieval and private/public result matching on-device.
+- Let local models use selected context without network access.
+- Preview exact query, destination, and context before each external call; no standing consent.
 
-- Separate recordings, transcripts, user preferences, and derived voice data in the schema.
-- Prefer local processing and make retention choices visible.
-- Require separate consent for use of voice identity or voice generation.
+### 5. Voice and avatar identity
+
+- Store portable descriptive settings and stable engine/profile identifiers.
+- Treat voice models and avatar files as optional encrypted assets, separate from memories.
+- Require specific rights, consent, retention, revocation, and deletion policies.

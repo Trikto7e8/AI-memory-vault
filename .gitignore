@@ -4,19 +4,48 @@
 !.env.example
 *.vault
 *.vault.*
+*.mvault
+*.mvault.*
 *.key
 *.pem
 *.p12
 *.pfx
 
-# Audio and personal exports
+# Private media and assistant exports
 *.wav
+*.aif
+*.aiff
 *.mp3
 *.m4a
+*.amr
+*.3gp
 *.aac
 *.flac
-openai-data-export*/
+*.ogg
+*.opus
+*.wma
+*.webm
+*.png.private
+*.avatar.private
+*.voice-model
+
+# Local database dumps
+*.db
+*.sqlite
+*.sqlite3
 personal-data/
+private-assets/
+assistant-exports/
+conversation-exports/
+*-data-export*/
+exports/
+data-export*.zip
+*.zip
+*.jsonl
+conversations.json
+shared_conversations.json
+chat.html
+user.json
 
 # Local tooling
 .DS_Store

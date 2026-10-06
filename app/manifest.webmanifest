@@ -1,0 +1,19 @@
+{
+  "name": "AI Memory Vault",
+  "short_name": "AI Memory",
+  "description": "Memoria personale e impostazioni portatili per il tuo assistente di IA",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f1f5f2",
+  "theme_color": "#102c35",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

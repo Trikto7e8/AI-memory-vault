@@ -1,60 +1,73 @@
-# Memoria Vault
+# AI Memory Vault
 
-**Un archivio personale e portabile per la memoria degli assistenti.**
+**La memoria personale e portatile dell’assistente di IA.**
 
 [English](README.md) | [Italiano](README.it.md)
 
-Memoria Vault è un progetto aperto per custodire ricordi personali, preferenze, note vocali e impostazioni sul comportamento dell’assistente sotto il controllo della persona. Il vault nasce per funzionare localmente, accompagnare la persona sui suoi dispositivi e sincronizzarsi senza rendere leggibili i contenuti al servizio di archiviazione.
+AI Memory Vault è un progetto open source per custodire, sotto il controllo dell’utente, preferenze relative all’IA, ricordi personali e note vocali, insieme alle impostazioni di voce, personalità e comportamento dell’assistente di IA che usa abitualmente. La memoria è progettata per funzionare localmente e accompagnare l’utente sui suoi dispositivi, senza dipendere dal modello scelto. L’utente potrà cambiare modello di IA/LLM senza perdere i ricordi custoditi né la confidenza costruita con il proprio assistente. La futura sincronizzazione è progettata per trasferire solo dati cifrati, in modo che il servizio di archiviazione non possa leggerne i contenuti; la sincronizzazione automatica non è ancora implementata.
 
-In futuro potrà diventare un modulo personale di Solphivia, pur restando un progetto indipendente.
-
-> Questo repository contiene al momento la visione del progetto e i suoi obiettivi di sicurezza. Non è ancora un prodotto di cifratura implementato o verificato. Non inserire dati personali reali.
+> Il repository include un prototipo locale sperimentale, non revisionato né sottoposto ad audit. Usa solo dati sintetici; non inserire dati personali reali.
 
 ## Cosa vogliamo costruire
 
-- Un vault locale con ricordi, preferenze e impostazioni sulla personalità dell’assistente, scelti dall’utente.
-- Ricordi categorizzati con provenienza, data e possibilità di revisione, correzione, scadenza o cancellazione.
-- Esportazione e importazione cifrate per spostare il vault tra dispositivi.
-- Sincronizzazione facoltativa in cui il servizio conserva dati cifrati senza poterli decifrare.
-- Un confine chiaro tra i dati privati del vault e le informazioni inviate a un modello o servizio di ricerca esterno.
-- Recupero locale che possa confrontare ricordi privati con risultati pubblici sul dispositivo, senza inviare i ricordi.
-- Note vocali e tracce audio sotto il controllo dell’utente, con elaborazione locale come impostazione iniziale.
-- Un formato aperto e interfacce documentate, così che altre persone e progetti possano contribuire.
+- Memoria personale categorizzata e curata dall’utente, con preferenze IA e note vocali personali.
+- Possibilità per l’utente di cambiare modello di IA/LLM senza perdere la memoria né la confidenza costruita con il proprio assistente.
+- Profilo portatile dell’assistente abitualmente usato: voce riconoscibile, personalità, comportamento, istruzioni, limiti e preferenze.
+- Identità riconoscibile dell'assistente: voce/timbro e avatar, trasferibili con il profilo.
+- Formato indipendente da modelli e fornitori, per usare modelli locali, gratuiti o commerciali.
+- Sincronizzazione tra dispositivi con cifratura end-to-end, associazione esplicita dei dispositivi e chiavi private che restano sotto il controllo dell'utente.
+- Storico firmato delle revisioni, ispirato alle catene di hash e capace di conservare i conflitti, senza blockchain pubblica né registro pubblico di dati personali.
+- Ricerca locale dei ricordi e condivisione remota solo dopo aver mostrato e approvato cosa viene inviato.
+- Importazione guidata e locale da formati di esportazione di assistenti diversi.
+- Formato aperto e interfacce documentate, così che la comunità possa contribuire.
 
-## La promessa di privacy a cui puntiamo
+## Privacy e identità dell'assistente
 
-La cifratura dei dati archiviati e la sincronizzazione cifrata non rendono private, end-to-end, tutte le interazioni del vault. Se l’utente sceglie di inviare un ricordo come contesto a un modello o servizio di ricerca esterno, quel contenuto lascia il dispositivo e ricade nelle modalità di trattamento del fornitore. La prima versione dovrebbe quindi mantenere i dati personali sul dispositivo per impostazione predefinita, mostrare cosa verrebbe condiviso e richiedere una scelta esplicita prima dell’invio.
+Nel profilo vocale del prototipo, timbro e accento/pronuncia sono campi distinti.
 
-Il progetto dovrà documentare quali informazioni possono vedere il dispositivo, l’app, il servizio di sincronizzazione e ogni fornitore esterno di modelli o ricerca. Faremo affermazioni sulla privacy solo quando saranno sostenute dall’implementazione e dal modello delle minacce.
+La memoria e il profilo rimangono sul dispositivo per impostazione predefinita. La sincronizzazione futura dovrà trasportare solo pacchetti cifrati; il servizio potrà comunque osservare metadati come dimensioni e tempi. Quando si usa un modello remoto, la richiesta e i dati approvati vengono trasmessi in chiaro al fornitore per l'elaborazione: la schermata dovrà mostrare il testo esatto e chiedere un consenso valido per quella sola richiesta.
 
-## Ambito iniziale
+Per voce intendiamo la voce con cui l'assistente parla e la sua continuità tra dispositivi: timbro, profilo vocale o modello vocale privato, lingua, ritmo e identificativo del motore. Un eventuale modello vocale e l'avatar sono asset privati separati, facoltativi e cifrati; la loro generazione o condivisione richiede un consenso specifico. Un'etichetta o una descrizione da sola non garantisce che motori diversi riproducano la stessa voce.
 
-La prima tappa sarà un piccolo vault locale con:
+## Prototipo locale
 
-1. Un formato dati documentato e versionato per ricordi e preferenze sul comportamento.
-2. Funzioni locali per creare, leggere, modificare, cancellare, esportare e importare i dati.
-3. Cifratura e recupero delle chiavi progettati prima di conservare dati reali.
-4. Nessun caricamento automatico dei contenuti del vault; ove possibile, i risultati pubblici verranno confrontati con i ricordi sul dispositivo.
-5. Un percorso per ispezionare e selezionare localmente i dati esportati da OpenAI, senza caricare l’archivio.
+Il prototipo blocca automaticamente il vault dopo dieci minuti senza interazioni e svuota i campi visualizzati. Riduce il rischio su una schermata lasciata incustodita, ma non garantisce la cancellazione di ogni copia in chiaro dalla memoria del processo del browser.
 
-Registrazione vocale, riconoscimento e generazione del parlato, sincronizzazione tra dispositivi e integrazioni con modelli o ricerca esterni verranno dopo la revisione del modello dei dati e delle chiavi.
+Con il vault sbloccato puoi cambiare passphrase. L'app ricifra l'involucro locale della chiave privata, lasciando invariati la chiave dati e il payload cifrato dei ricordi. I backup esportati in precedenza continuano a richiedere la passphrase originale: esporta un nuovo backup dopo il cambio. Questa operazione non ruota le chiavi dei dispositivi.
 
-## Principi di progettazione
+La cartella [`app/`](app/) contiene un prototipo web locale per creare, cercare, modificare, approvare, archiviare ed eliminare ricordi testuali, salvare preferenze di personalità e voce dell'assistente, generare un'anteprima locale ed esportare/importare un backup cifrato. Non supporta ancora note vocali o allegati audio. L'anteprima non contatta modelli o servizi esterni. Il formato non dipende da un modello. Non sono ancora implementati la sincronizzazione automatica, gli adattatori ai modelli, la portabilità reale di avatar/modelli vocali o l'importazione multi-formato.
 
-- **Il vault appartiene alla persona.** L’utente può ispezionare, modificare, esportare, cancellare e spostare i propri dati.
-- **Prima locale.** Leggere e modificare i ricordi non deve richiedere una connessione.
-- **Privacy predefinita.** La sincronizzazione trasporta dati cifrati; le richieste esterne non includono contesto personale senza una scelta dell’utente.
-- **Condivisione limitata e visibile.** L’utente vede i ricordi o estratti selezionati per ogni richiesta esterna.
-- **Formati portabili e aperti.** Il vault non deve dipendere da un solo modello, fornitore, dispositivo o azienda.
-- **Sicurezza dichiarata con precisione.** Documentiamo i metadati visibili, i compromessi del recupero e i limiti in caso di dispositivo o app compromessi.
-- **Consenso per i dati vocali.** Audio e dati derivati dalla voce sono sensibili; registrazione e utilizzo devono essere visibili, revocabili e controllati dalla persona interessata.
+Su Windows, dalla cartella principale del repository avvia un server statico:
+
+```powershell
+py -m http.server 8000
+```
+
+Apri poi `http://localhost:8000/app/`. Il prototipo cifra localmente il vault e il backup manuale è trasferibile, ma non sincronizza i dispositivi e riusa la stessa coppia di chiavi protetta da passphrase. La coppia distinta per ogni dispositivo e la sync sono descritte come progetto in [sync-protocol](docs/sync-protocol.it.md), non sono funzioni operative. Web Crypto non è stata revisionata né sottoposta ad audit: usa solo dati sintetici e tieni i backup fuori dal repository.
+
+## Documentazione
+
+L'ingresso runtime riutilizzabile è [`src/index.js`](src/index.js); [`src/index.ts`](src/index.ts) aggiunge i contratti di sync e il modulo vocale facoltativo con consenso separato. Il nucleo offre una sessione di vault cifrata sopra un'interfaccia di archivio che riceve e salva solo byte dell'involucro cifrato. Creazione atomica e aggiornamenti compare-and-swap impediscono a due sessioni locali di sovrascriversi in silenzio. L'adattatore IndexedDB riutilizzabile è esportato dal nucleo e mantiene la compatibilità con gli involucri salvati dal prototipo precedente. Le operazioni sui ricordi e il recupero locale non dipendono da un modello. Il prototipo browser usa lo stesso ingresso runtime e non richiede installazioni di pacchetti.
+
+- [Visione](docs/vision.it.md)
+- [Uso del nucleo locale del vault](docs/core-api.it.md)
+- [Architettura](docs/architecture.it.md)
+- [Modello delle minacce](docs/threat-model.it.md)
+- [Confine tra vault, modelli e ricerca](docs/provider-boundary.it.md)
+- [Progetto di sincronizzazione cifrata](docs/sync-protocol.it.md)
+- [Continuità dell'identità vocale](docs/voice-module.it.md)
+- [Roadmap](docs/roadmap.it.md)
+- [Schema dati](schemas/vault-snapshot-v1.schema.json)
+- [Validatore condiviso dello snapshot](src/core/snapshot-validation.js)
+- [Sessione condivisa di vault cifrata](src/core/encrypted-vault.js)
+- [Ingresso runtime pubblico](src/index.js)
+- [Schema dell'involucro del backup cifrato](schemas/encrypted-envelope-v1.schema.json)
+- [Implementazione riutilizzabile dell'involucro cifrato](src/crypto/encrypted-envelope.js)
 
 ## Contribuire
 
-Il progetto è nella fase di proposta. Prima di accettare contributi di implementazione, pubblicheremo un modello delle minacce, uno schema dei dati, un progetto crittografico e una guida per contribuire. Le modifiche che riguardano la sicurezza dovranno essere revisionate da persone con competenze pertinenti.
-
-Consulta la [visione del progetto](docs/vision.it.md), le [note di architettura](docs/architecture.it.md) e i [principi di sicurezza](docs/security-principles.it.md).
+Il progetto è in fase di prototipo. Non caricare nel repository ricordi reali, esportazioni personali, backup, chiavi, campioni o modelli vocali. Le modifiche a crittografia e sincronizzazione richiedono revisione di sicurezza. Leggi [CONTRIBUTING](CONTRIBUTING.it.md).
 
 ## Stato
 
-Concept e struttura iniziale del repository. Non sono ancora presenti codice applicativo, crittografia implementata, protocollo di sincronizzazione o audit di sicurezza.
+Prototipo web locale e nucleo TypeScript in sviluppo. Mancano adattatori AI, sincronizzazione automatica, importatore multi-formato e audit indipendente. Non usare dati personali reali.
