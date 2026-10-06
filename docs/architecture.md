@@ -2,62 +2,41 @@
 
 [English](architecture.md) | [Italiano](architecture.it.md)
 
-These notes turn the current goals into a reviewable direction. They are not an implementation specification; key formats, algorithms, and protocol details still need expert review before coding.
+These notes set a direction to implement and review; they are not a security certification.
 
-## Keep four concerns separate
+## Separate but portable concerns
 
-1. **Memory data:** user-controlled records, categories, provenance, timestamps, and retention.
-2. **Assistant profile:** tone, language, behavior preferences, and boundaries, stored separately from factual memories.
-3. **Vault and keys:** local encryption, unlock, recovery, export, and optional encrypted sync.
-4. **Assistant adapters:** local models, mobile clients, public search, and optional remote models.
+1. **Personal memory:** categorized records, provenance, dates, sensitivity, and expiry.
+2. **Assistant identity:** name, personality, instructions, boundaries, style, voice/timbre, and avatar.
+3. **Vault and keys:** local encryption, unlock, backup, recovery, device enrollment, and synchronization.
+4. **Adapters:** interfaces to different AI models, voice engines, search, and mobile clients.
 
-This separation lets the same memory vault work with Solphivia, another local assistant, or a future application without handing the full archive to each one.
+Every concern must work without depending on one assistant or model. An adapter receives only the request and approved context; it has no autonomous access to the vault or keys.
 
-## Public/private keys and passwords
+## Persistent identity
 
-A public/private key pair is not the same thing as a password. The public key can be shared; the private key must stay secret. In an encrypted vault, the private key can help authorize a device or protect a small random vault key for that device. The public key by itself cannot decrypt the vault.
+The assistant profile travels with memory and describes its personality and identity. For voice, store descriptive preferences (timbre, accent, pace) and stable identifiers that a compatible engine can reuse. Preserving the same timbre across engines or devices may require treating a voice model as a separate, private, encrypted asset that transfers only with user consent. Descriptions and IDs alone cannot guarantee identical reproduction.
 
-Large files are usually encrypted with a randomly generated symmetric data key. A vetted authenticated-encryption construction protects the file; the data key is then wrapped separately for each authorized device using that device's public key. Each device uses its private key to unwrap the data key. This hybrid pattern is more practical than encrypting every byte directly with public-key cryptography.
+The same principle applies to the assistant's name, description, and avatar assets. Images, voice models, and other assets are not text memories and must not be put in issues, examples, or public commits. Cloning is optional and requires rights and specific consent from the represented person.
 
-A password or passphrase can locally unlock a device key or derive a wrapping key with a password-based key derivation function. It should not be treated as the public key, private key, or sole encryption primitive. Weak passwords, lost recovery material, and compromised unlocked devices still matter.
+## Public/private keys and passphrases
 
-The design must decide how device keys are generated, stored in OS-provided secure storage, backed up, rotated, revoked, and recovered. Sync must never receive a decryption key. A new device must be enrolled by an already-authorized device or an explicit recovery process; otherwise a sync provider could silently add a reader.
+A public/private key pair is not a password. The public key can be shared; the private key must remain secret. Data is encrypted with a random symmetric key; a copy of that key is then wrapped for each authorized device using its public key. The corresponding private key lets the device recover the data key.
 
-## Categorized local memory
+A passphrase protects private keys locally. It is neither a public key nor the vault key. On unlock, the prototype verifies that the public and private keys in the encrypted envelope form a pair. Each device must have distinct key pairs for encryption and signing. The sync service must never receive private keys or passphrases. Enrollment, recovery, revocation, and rotation are described in the [sync specification](sync-protocol.md) and remain to be implemented and reviewed.
 
-Store each memory as an independently addressable record so that users can review and remove it. A record should support:
+## Categorized records
 
-- a stable ID and schema version;
-- category and optional user-defined tags;
-- content and content type (text, reference, audio, transcript, or attachment);
-- source/provenance and creation/update times;
-- optional expiry, confidence, and sensitivity labels;
-- links to related projects or records;
-- an explicit user-curated, suggested, or imported status.
+Each memory has a stable ID, versioned schema, category, title, content, tags, provenance, dates, status, and sensitivity level. Media attachments are separate encrypted assets referenced by IDs, not local paths or public URLs. A conversation-derived suggestion remains under review until approved by the user. Corrections and deletion are explicit.
 
-Sensitive categories should be opt-in. A suggestion extracted from a conversation should remain a suggestion until the user accepts it. The assistant should retrieve only records relevant to the current task, with an easy way to inspect and edit the selected set.
+The runtime entry point [`src/index.js`](../src/index.js) exposes the portable core: provider-independent memory operations and one shared v1 snapshot validator. An encrypted session combines create/unlock, reads, serialized writes, local previews, passphrase changes, backup, and locking over a replaceable storage interface. Atomic creation and compare-and-swap updates detect stale local sessions instead of silently overwriting concurrent changes. The store handles encrypted-envelope bytes only; the reusable IndexedDB adapter is exported from the core, while mobile storage still needs a platform-specific implementation. The adapter also reads legacy envelope objects saved by the earlier prototype by normalizing them to JSON bytes. Imports require the valid passphrase and, when replacing an existing vault, explicit user confirmation.
 
-## Keep private memories on-device during public search
+Core operations reject unknown record and provenance fields and validate record bounds before saving, so extensions cannot silently add undeclared plaintext to a snapshot.
 
-For a public web lookup, create the search query from the current request while excluding vault contents by default. Fetch public results, then retrieve and compare relevant private memories locally. For example:
+## Retrieval and sharing
 
-```text
-User request
-  ├─ Public query without private context → search provider
-  └─ Relevant memories → local retrieval
-                         ↓
-              local comparison/summary
-```
+Records are retrieved locally. For public search, the client previews the exact query and removes private context by default; it compares results with memories on-device. Sending to a remote model shows the destination and exact text and requires consent for that request only. The provider sees in plaintext what it receives.
 
-If the user asks for personalized remote reasoning, show the destination and exact memory excerpts first. Require a one-time confirmation. Never imply that end-to-end encryption protects content after the user deliberately sends it to a remote provider.
+## Synchronization
 
-## Device sync
-
-When sync is added, encrypt records on the sending device before upload. The sync service should store opaque ciphertext and the minimum metadata needed to locate and synchronize objects. Document any visible sizes, timestamps, account identifiers, and access patterns. Downloaded data is authenticated and decrypted only on an authorized device.
-
-## Lessons from prior Solphivia discussions
-
-- Test continuity by carrying one project into a fresh conversation, and let the user inspect and correct the recalled context.
-- Keep memory independent from the assistant or model so the phone, notebook, and future clients can share a format.
-- Local inference, document search, and a notebook-hosted memory service are optional adapters; they should not be required for a portable vault.
-- Voice quality and identity are distinct from memory storage. Keep voice recordings, transcripts, and style preferences separately permissioned.
+The client encrypts and authenticates each revision before upload. Authorized devices' public keys each receive a wrapped copy of the data key; the service stores ciphertext and routing metadata. The protocol must authenticate membership, versions, and revisions; detect replay; preserve offline conflicts; and support revocation and recovery. Until these properties are implemented and reviewed, do not claim end-to-end sync is active.

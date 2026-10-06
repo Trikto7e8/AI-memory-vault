@@ -1,60 +1,70 @@
-# Memoria Vault
+# AI Memoria Vault
 
-**A portable, personal memory vault for assistants.**
+**The personal, portable memory of your AI assistant.**
 
 [English](README.md) | [Italiano](README.it.md)
 
-Memoria Vault is an open project for keeping personal memories, preferences, voice notes, and assistant behavior under the person's control. The vault is designed to work locally, travel between a person's devices, and synchronize without giving a storage provider readable access to its contents.
+AI Memoria Vault is an open-source project for carrying the memory and identity of your AI assistant/agent: user-selected memories, personality, style, a recognizable voice, and an avatar. The goal is to find the same assistant across devices and use different models without tying its memory to one provider.
 
-It may later serve as a personal-assistant module for Solfivia, while remaining useful as an independent project.
-
-> This repository currently describes the project and its security goals. It is not yet an implemented or audited encryption product. Do not put real personal data in it.
+> The repository includes an experimental local prototype that has not been reviewed or audited. Use synthetic data only; do not enter real personal data.
 
 ## What we want to build
 
-- A local-first vault containing user-curated memories, preferences, and assistant-personality settings.
-- Categorized memories with source, date, confidence, and user controls to review, correct, expire, or delete them.
-- Encrypted export and import, so the user can move the vault between devices.
-- Optional synchronization where the sync service stores ciphertext and cannot decrypt vault contents.
-- A clear boundary between private vault data and information sent to an external model or search service.
-- Local retrieval that can match private memories against public search results on-device, without sending the memories themselves.
-- User-controlled voice notes and audio traces, with local processing as the default.
-- An open format and documented interfaces so other people and projects can contribute.
+- User-curated, categorized personal memory.
+- A portable assistant profile: personality, instructions, boundaries, and preferences.
+- A recognizable assistant identity: voice/timbre and avatar, carried with the profile.
+- A format independent of models and providers, for local, free, or commercial models.
+- Cross-device synchronization with end-to-end encryption, explicit device enrollment, and private keys kept under the user's control.
+- A signed, conflict-aware revision history inspired by hash chains, without a public blockchain or public personal-data ledger.
+- Local memory retrieval and remote sharing only after previewing and approving what is sent.
+- Guided, local import from different assistant conversation-export formats.
+- Open formats and documented interfaces so the community can contribute.
 
-## Privacy promise we are aiming for
+## Privacy and assistant identity
 
-Encryption at rest and encrypted sync do not make every use of the vault end-to-end private. If a user chooses to send a memory as context to an external model or search provider, that selected content leaves the device and becomes subject to that provider's handling. The first version should therefore keep personal context local by default, show what would be shared, and require an explicit choice before sending it.
+Memory and profile stay on-device by default. Future sync must carry only encrypted packages; the service may still observe metadata such as size and timing. When a remote model is used, the request and approved data are sent in plaintext to the provider for processing: the UI must preview the exact text and ask for consent for that request only.
 
-The project must document what each component can see: the device, the app, the sync provider, and any external model or search provider. We should make privacy claims only after the implementation and threat model support them.
+Voice means the voice the assistant speaks with and its continuity across devices: timbre, accent and pronunciation, voice profile or private voice model, language, pace, and engine identifier. The local prototype stores timbre and accent as separate profile fields. Any voice model and avatar are separate, optional, encrypted private assets; creating or sharing them requires specific consent. A label or description alone cannot guarantee that different engines reproduce the same voice.
 
-## Initial scope
+## Local prototype
 
-The first milestone is a small local vault with:
+The prototype automatically locks the vault after ten minutes without interaction and clears rendered form values. This reduces exposure on an unattended screen; it cannot guarantee erasure of every plaintext copy from browser process memory.
 
-1. A documented, versioned data format for memories and behavior preferences.
-2. Local create, read, edit, delete, export, and import flows.
-3. Encryption and key recovery designed before storing real data.
-4. A privacy boundary for integrations, with no automatic upload of vault contents and on-device matching of public results where possible.
-5. An import path that lets the user inspect and select data from an OpenAI data export; importing is local and never uploads the archive.
+While unlocked, you can change the passphrase. The app re-encrypts the locally stored private-key envelope and leaves the vault data key and encrypted memory payload unchanged. Previously exported backups still require their original passphrase; export a fresh backup after changing it. This is not device-key rotation.
 
-Voice recording, speech recognition, voice generation, multi-device sync, and external model/search integrations should follow only after the data and key model is reviewed.
+The [`app/`](app/) folder contains a local web prototype to create, search, edit, approve, archive, and delete memories; save personality and voice-identity settings; generate a local preview of relevant memories; and export/import an encrypted backup. The preview does not contact models or external services. The format does not depend on a model. Automatic sync, model adapters, actual avatar/voice-model portability, and multi-format import are not implemented yet.
 
-## Design principles
+On Windows, start a static server from the repository root:
 
-- **The person owns the vault.** The user can inspect, edit, export, delete, and move their data.
-- **Local first.** Reading and editing memories should not require a network connection.
-- **Private by default.** Sync carries encrypted data; external requests carry no personal context unless the user chooses it.
-- **Small, explicit sharing.** Show the exact memories or excerpts selected for any external request.
-- **Portable, open formats.** Avoid tying the vault to one model, provider, device, or company.
-- **Honest security.** Document metadata that remains visible, recovery trade-offs, and limits when a device or app is compromised.
-- **Consent for voice data.** Audio and voice-derived data are sensitive; recording and use should be visible, revocable, and controlled by the person represented.
+```powershell
+py -m http.server 8000
+```
+
+Then open `http://localhost:8000/app/`. The prototype encrypts the vault locally and its manual backup is portable, but it does not sync devices and reuses the same passphrase-protected key pair. Separate per-device keys and sync are described in [sync-protocol](docs/sync-protocol.md) as a design, not as operational features. Web Crypto has not been reviewed or audited: use synthetic data only and keep backups outside the repository.
+
+## Documentation
+
+The reusable runtime entry point is [`src/index.js`](src/index.js); [`src/index.ts`](src/index.ts) adds the sync contracts and the optional voice module with separate consent. The core provides an encrypted vault session over a storage interface that handles encrypted-envelope bytes only. Atomic creation and compare-and-swap updates prevent two local sessions from silently overwriting each other. The reusable IndexedDB adapter is exported from the core and retains compatibility with envelopes saved by the earlier prototype. Memory operations and local retrieval are independent of any model. The browser prototype uses the same runtime entry point and requires no package installation.
+
+- [Project vision](docs/vision.md)
+- [Using the local vault core](docs/core-api.md)
+- [Architecture](docs/architecture.md)
+- [Threat model](docs/threat-model.md)
+- [Vault, model, and search boundary](docs/provider-boundary.md)
+- [Encrypted sync design](docs/sync-protocol.md)
+- [Voice identity continuity](docs/voice-module.md)
+- [Roadmap](docs/roadmap.md)
+- [Data schema](schemas/vault-snapshot-v1.schema.json)
+- [Shared snapshot validator](src/core/snapshot-validation.js)
+- [Reusable encrypted vault session](src/core/encrypted-vault.js)
+- [Public runtime entry point](src/index.js)
+- [Encrypted backup envelope schema](schemas/encrypted-envelope-v1.schema.json)
+- [Reusable encrypted-envelope implementation](src/crypto/encrypted-envelope.js)
 
 ## Contributing
 
-The project is at the proposal stage. Before accepting implementation contributions, we will publish a threat model, data schema, cryptographic design, and contribution guide. Security-sensitive changes should be reviewed by people with relevant expertise.
-
-See [the project vision](docs/vision.md), [architecture notes](docs/architecture.md), and [security principles](docs/security-principles.md).
+This is a prototype. Do not commit real memories, personal exports, backups, keys, voice samples, or voice models. Cryptography and sync changes need security review. Read [CONTRIBUTING](CONTRIBUTING.md).
 
 ## Status
 
-Early concept and repository scaffold. No application code, cryptography, synchronization protocol, or security audit is present yet.
+Local web prototype and TypeScript core in development. AI adapters, automatic sync, multi-format import, and independent security audit remain incomplete. Do not use real personal data.

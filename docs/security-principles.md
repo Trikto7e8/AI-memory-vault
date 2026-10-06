@@ -25,14 +25,16 @@ The threat model must state which of these the product can mitigate and which it
 5. Document visible sync metadata and whether filenames, timestamps, and object sizes are encrypted or padded.
 6. Decide how encrypted backups and conflict resolution work.
 7. Define exactly what the user sees and approves before any private content is sent to an external provider.
-8. Set rules for handling audio, transcripts, embeddings, and derived voice data.
+8. Set separate rights, consent, encryption, transfer, and deletion rules for voice models and avatar assets that form the assistant's identity.
 
 ## Operational requirements
 
 - Never commit keys, secrets, real vaults, or personal audio to source control.
 - Keep sample data synthetic and clearly labeled.
 - Keep private content out of logs, telemetry, analytics, and crash reports by default.
+- Clear decrypted values from the rendered UI when locking; describe memory zeroization as best-effort because browser runtimes do not guarantee removal of all plaintext copies.
 - Make export, deletion, backup, and recovery behavior understandable before the user relies on it.
+- Explain passphrase changes separately from device-key rotation; old exported backups retain their original passphrase protection.
 - Track cryptographic dependencies and update them in response to security advisories.
 - Arrange independent review before making end-to-end encryption claims.
 

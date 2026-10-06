@@ -2,62 +2,41 @@
 
 [English](architecture.md) | [Italiano](architecture.it.md)
 
-Queste note traducono gli obiettivi attuali in una direzione discutibile e verificabile. Non sono una specifica d’implementazione: formato delle chiavi, algoritmi e dettagli del protocollo devono ancora essere esaminati da esperti prima di scrivere il codice.
+Queste note definiscono una direzione da implementare e revisionare; non sono un'attestazione di sicurezza.
 
-## Tenere separate quattro aree
+## Aree separate ma portabili
 
-1. **Dati di memoria:** record controllati dall’utente, categorie, provenienza, date e conservazione.
-2. **Profilo dell’assistente:** tono, lingua, preferenze di comportamento e limiti, separati dai ricordi fattuali.
-3. **Vault e chiavi:** cifratura locale, sblocco, recupero, esportazione e sincronizzazione cifrata facoltativa.
-4. **Integrazioni dell’assistente:** modelli locali, client mobili, ricerca pubblica e, se scelti, modelli remoti.
+1. **Memoria personale:** record categorizzati, provenienza, date, sensibilità e scadenza.
+2. **Identità dell'assistente:** nome, personalità, istruzioni, limiti, stile, voce/timbro e avatar.
+3. **Vault e chiavi:** cifratura locale, sblocco, backup, recupero, associazione dei dispositivi e sincronizzazione.
+4. **Adattatori:** interfacce verso diversi modelli AI, motori vocali, ricerca e client mobili.
 
-Questa separazione permette allo stesso vault di funzionare con Solphivia, un altro assistente locale o applicazioni future, senza consegnare l’intero archivio a ciascuno.
+Tutte le aree devono poter essere usate senza dipendere da un solo assistente o modello. Un adattatore riceve soltanto la richiesta e il contesto approvato; non ha accesso autonomo al vault o alle chiavi.
 
-## Chiavi pubbliche/private e password
+## Identità persistente
 
-Una coppia di chiavi pubblica/privata non è una password. La chiave pubblica si può condividere; quella privata deve restare segreta. In un vault cifrato, la chiave privata può servire ad autorizzare un dispositivo o a proteggere una piccola chiave casuale del vault. La sola chiave pubblica non può decifrare il vault.
+Il profilo dell'assistente viaggia con la memoria e descrive la sua personalità e identità. Per la voce, salvare sia preferenze descrittive (timbro, accento, ritmo) sia identificativi stabili che un motore compatibile possa riutilizzare. Se serve lo stesso timbro su motori o dispositivi diversi, il modello vocale deve essere trattato come un asset privato separato, cifrato e trasferibile solo con il consenso dell'utente. Le descrizioni e gli ID non garantiscono da soli la riproduzione identica.
 
-I file grandi vengono in genere cifrati con una chiave simmetrica casuale. Una costruzione di cifratura autenticata e verificata protegge il file; la chiave dei dati viene poi protetta separatamente per ogni dispositivo autorizzato usando la sua chiave pubblica. Ogni dispositivo usa la propria chiave privata per recuperare la chiave dei dati. Questo schema ibrido è più pratico che cifrare direttamente ogni byte con crittografia a chiave pubblica.
+Nome, descrizione e asset dell'avatar seguono lo stesso principio. Foto, modelli vocali e altri asset non sono ricordi testuali e non vanno inseriti in issue, esempi o commit pubblici. La clonazione è facoltativa e richiede diritti e consenso specifici della persona rappresentata.
 
-Una password o passphrase può sbloccare localmente una chiave del dispositivo o derivare una chiave di protezione con una funzione di derivazione adatta alle password. Non è la chiave pubblica, la chiave privata né l’unico meccanismo di cifratura. Password deboli, perdita del materiale di recupero e dispositivi sbloccati compromessi restano rischi da considerare.
+## Chiavi pubbliche/private e passphrase
 
-Il progetto dovrà stabilire come generare, conservare tramite gli strumenti sicuri del sistema operativo, salvare, ruotare, revocare e recuperare le chiavi dei dispositivi. Il servizio di sincronizzazione non deve ricevere chiavi di decifratura. Un nuovo dispositivo dovrà essere autorizzato da un dispositivo già riconosciuto o da un processo di recupero esplicito; altrimenti il servizio di sincronizzazione potrebbe aggiungere di nascosto un lettore.
+Una coppia di chiavi pubblica/privata non è una password. La chiave pubblica può essere condivisa; la privata deve restare segreta. I dati si cifrano con una chiave casuale simmetrica; poi si protegge una copia di quella chiave per ciascun dispositivo autorizzato tramite la sua chiave pubblica. La chiave privata corrispondente permette al dispositivo di recuperare la chiave dati.
 
-## Memoria locale categorizzata
+Una passphrase protegge localmente le chiavi private. Non è la chiave pubblica né la chiave del vault. Durante lo sblocco, il prototipo verifica che la chiave pubblica e quella privata nell'involucro cifrato formino una coppia. Ogni dispositivo deve avere coppie di chiavi distinte per cifratura e firma. Il servizio di sync non deve ricevere chiavi private o passphrase. L'associazione, il recupero, la revoca e la rotazione sono descritti nella [specifica di sync](sync-protocol.it.md) e restano da implementare e revisionare.
 
-Ogni ricordo dovrebbe essere un record identificabile, così che l’utente possa controllarlo e rimuoverlo. Il record dovrebbe prevedere:
+## Record categorizzati
 
-- ID stabile e versione dello schema;
-- categoria ed eventuali etichette definite dall’utente;
-- contenuto e tipo (testo, riferimento, audio, trascrizione o allegato);
-- provenienza e date di creazione e modifica;
-- eventuale scadenza, confidenza ed etichetta di sensibilità;
-- collegamenti a progetti o record correlati;
-- stato esplicito: curato dall’utente, suggerito o importato.
+Ogni ricordo ha ID stabile, schema versionato, categoria, titolo, contenuto, tag, provenienza, date, stato e livello di sensibilità. Gli allegati multimediali sono asset cifrati separati referenziati da ID, non percorsi locali o URL pubblici. Un suggerimento estratto da una conversazione resta in revisione finché l'utente non lo approva. Correzioni e cancellazioni sono esplicite.
 
-Le categorie sensibili devono essere facoltative. Un ricordo estratto da una conversazione resta un suggerimento finché l’utente non lo accetta. L’assistente dovrebbe recuperare solo i record pertinenti all’attività corrente, rendendo semplice ispezionare e modificare l’insieme selezionato.
+Il punto d'ingresso runtime [`src/index.js`](../src/index.js) espone il nucleo portatile: operazioni sui ricordi indipendenti dal fornitore e un unico validatore condiviso per lo snapshot v1. Una sessione cifrata riunisce creazione/sblocco, lettura, scrittura serializzata, anteprima locale, cambio passphrase, backup e blocco sopra un'interfaccia di archivio sostituibile. Creazione atomica e aggiornamenti compare-and-swap rilevano sessioni locali obsolete invece di sovrascrivere modifiche concorrenti. L'archivio riceve solo byte dell'involucro cifrato; l'adattatore riutilizzabile IndexedDB è esportato dal nucleo, mentre un archivio mobile richiederà una propria implementazione. L'adattatore legge anche gli involucri in formato oggetto salvati dal prototipo precedente, normalizzandoli a byte JSON. Le importazioni richiedono la passphrase valida e, se sostituiscono un vault esistente, una conferma esplicita dell'utente.
 
-## Ricerca pubblica senza inviare ricordi privati
+Le operazioni rifiutano campi non previsti nei record e nella provenienza e verificano i limiti prima del salvataggio, così le estensioni non possono aggiungere silenziosamente dati in chiaro non dichiarati allo snapshot.
 
-Per una ricerca web pubblica, la query viene ricavata dalla richiesta corrente senza includere i contenuti del vault. I risultati pubblici vengono poi confrontati con i ricordi pertinenti sul dispositivo. Per esempio:
+## Ricerca e condivisione
 
-```text
-Richiesta dell’utente
-  ├─ Query pubblica senza contesto privato → motore di ricerca
-  └─ Ricordi pertinenti → recupero locale
-                          ↓
-               confronto/sintesi locale
-```
+Il recupero dei record avviene localmente. Nella ricerca pubblica il client presenta la query esatta e rimuove il contesto privato per impostazione predefinita; confronta i risultati con i ricordi sul dispositivo. Un invio a un modello remoto mostra destinatario e testo preciso e richiede un consenso per quella sola richiesta. Il fornitore vede in chiaro ciò che riceve.
 
-Se l’utente chiede un ragionamento personalizzato da remoto, l’app mostra prima la destinazione e gli estratti esatti. Richiede una conferma valida per quella richiesta. Non deve mai suggerire che la cifratura end-to-end protegga contenuti che l’utente invia deliberatamente a un fornitore remoto.
+## Sincronizzazione
 
-## Sincronizzazione tra dispositivi
-
-Quando verrà aggiunta la sincronizzazione, il dispositivo mittente cifrerà i record prima del caricamento. Il servizio di sincronizzazione conserverà dati cifrati non leggibili e il minimo di metadati necessario per identificare e sincronizzare gli oggetti. Dovrà essere documentato cosa resta visibile: dimensioni, date, identificativi dell’account e modalità di accesso. I dati scaricati saranno verificati e decifrati solo su un dispositivo autorizzato.
-
-## Spunti dalle conversazioni precedenti su Solphivia
-
-- Verificare la continuità salvando un progetto e recuperandolo in una nuova conversazione, lasciando all’utente la possibilità di vedere e correggere il contesto.
-- Tenere la memoria indipendente dall’assistente o dal modello, così che telefono, notebook e futuri client possano usare lo stesso formato.
-- Inferenza locale, ricerca nei documenti e un servizio di memoria ospitato sul notebook sono integrazioni facoltative, non requisiti del vault portabile.
-- Qualità e identità della voce sono distinte dall’archiviazione dei ricordi. Registrazioni, trascrizioni e preferenze vocali richiedono permessi separati.
+Il client cifra e autentica ogni revisione prima di inviarla. Le chiavi pubbliche dei dispositivi autorizzati ricevono ciascuna un involucro della chiave dati; il servizio conserva ciphertext e metadati di routing. Il protocollo deve autenticare membership, versioni e revisioni, rilevare replay, conservare conflitti offline e consentire revoca e recupero. Finché queste proprietà non sono implementate e revisionate, non dichiarare attiva la sync end-to-end.

@@ -1,46 +1,52 @@
-# Bozza di roadmap
+# Roadmap
 
 [English](roadmap.md) | [Italiano](roadmap.it.md)
 
-Questa è una proposta da discutere, non una promessa di date di consegna.
+Questa roadmap segue lo sviluppo di un assistente personale di IA portatile. Le tappe di sicurezza richiedono revisione; il prototipo attuale serve solo con dati sintetici.
 
-## 0. Concordare i confini
+## Stato attuale
 
-- Confermare lo scopo del progetto e il rapporto con Solphivia.
-- Concordare le prime categorie di memoria e la regola per cui l’utente rivede i suggerimenti prima che diventino ricordi permanenti.
-- Pubblicare il modello delle minacce e definire cosa significa e cosa non significa cifratura end-to-end.
-- Scegliere licenza open source e processo di contribuzione.
-- Decidere piattaforme supportate e cosa significhi “portabile” nella prima versione.
+- [x] Prototipo browser locale per ricordi categorizzati e preferenze comportamentali/vocali.
+- [x] Recupero lessicale locale e anteprima dei ricordi approvati; dati sensibili esclusi per impostazione predefinita.
+- [x] API condivisa di sessione cifrata sopra un'interfaccia che persiste solo involucri cifrati.
+- [x] Contratti indipendenti dal fornitore per memoria e adattatori ai modelli.
+- [x] Prototipo di backup cifrato manuale e importazione.
+- [x] Bozza bilingue del modello delle minacce e del progetto di sync multi-dispositivo.
+- [ ] Revisione indipendente della crittografia browser; fino ad allora solo dati sintetici.
+- [ ] Schema completo dell'identità portatile: nome, persona, identità vocale, avatar e riferimenti protetti agli asset.
+- [ ] Associazione di chiavi per dispositivo, sync cifrata, recupero, conflitti, revoca e protezione dal rollback.
+- [ ] Adattatori ai modelli con autorizzazione esatta per ogni richiesta remota; il prototipo attuale non invia richieste ad alcun modello.
+- [ ] Importatore locale, revisionabile e multi-formato delle conversazioni.
+- [ ] Archivio cifrato degli asset facoltativi per modelli vocali e avatar, con consenso e controlli di portabilità separati.
 
-## 1. Modello dei dati locali
+## Tappe
 
-- Definire uno schema versionato per ricordi, provenienza, date, preferenze dell’utente e impostazioni di comportamento.
-- Specificare revisione, correzione, cancellazione e conservazione dei ricordi.
-- Prototipare la prova “salva un progetto, recuperalo in una nuova conversazione, esaminalo e correggilo”.
-- Creare dati di esempio sintetici e regole di migrazione.
+### 1. Memoria e identità portatile
 
-## 2. Vault locale
+- Versionare record per memoria categorizzata, provenienza, scadenza, sensibilità e revisione dell'utente.
+- Tenere comportamento e identità dell'assistente separati dai fatti, ma nello stesso vault portatile.
+- Verificare la continuità in una nuova conversazione, su un altro dispositivo e con un modello differente.
 
-- Scegliere una libreria crittografica consolidata e scrivere un progetto crittografico verificabile.
-- Implementare creazione, sblocco, blocco, esportazione, importazione, backup e recupero locali.
-- Verificare che segreti e contenuti privati non finiscano in log, telemetria o rapporti di arresto anomalo.
-- Ottenere una revisione di sicurezza indipendente prima di usare dati personali reali.
+### 2. Vault locale cifrato
 
-## 3. Portabilità e sincronizzazione
+- Revisionare progetto crittografico e gestione delle chiavi.
+- Mantenere i flussi locali di creazione, sblocco, blocco, modifica, cancellazione, backup, importazione e recupero.
+- Escludere contenuti privati da log, telemetria, rapporti di arresto anomalo e repository pubblico.
 
-- Definire il trasferimento cifrato del vault tra dispositivi.
-- Progettare registrazione e revoca dei dispositivi, gestione dei conflitti, backup e recupero.
-- Tenere le chiavi di decifratura fuori dal servizio di sincronizzazione e documentare i metadati residui.
+### 3. Sync e portabilità tra dispositivi
 
-## 4. Integrazioni con assistenti
+- Associare una coppia di chiavi indipendente per dispositivo, approvata da un dispositivo fidato già autorizzato.
+- Cifrare e autenticare ogni revisione; conservare rami e conflitti invece di sovrascrivere silenziosamente.
+- Progettare recupero, rotazione chiavi, revoca dispositivi, protezione replay/rollback e metadati residui.
 
-- Definire un’interfaccia con permessi per recuperare ricordi selezionati.
-- Mantenere il recupero locale disponibile senza rete.
-- Mostrare il contesto esatto e la destinazione prima di inviare dati a un fornitore esterno di modelli o ricerca.
-- Aggiungere, dove praticabile, integrazioni con modelli e ricerca locali.
+### 4. Adattatori per modelli e ricerca
 
-## 5. Audio
+- Mantenere sul dispositivo il recupero e il confronto tra risultati pubblici e ricordi privati.
+- Permettere ai modelli locali di usare il contesto selezionato senza rete.
+- Mostrare query, destinatario e contesto esatti prima di ogni chiamata esterna; niente consenso permanente.
 
-- Separare registrazioni, trascrizioni, preferenze e dati vocali derivati nello schema.
-- Preferire elaborazione locale e rendere visibili le scelte di conservazione.
-- Richiedere un consenso separato per l’uso dell’identità vocale o la generazione della voce.
+### 5. Identità vocale e avatar
+
+- Conservare preferenze descrittive portabili e identificativi stabili di motore/profilo.
+- Trattare modelli vocali e file avatar come asset cifrati facoltativi, separati dai ricordi.
+- Richiedere diritti, consenso, regole di conservazione, revoca e cancellazione specifici.

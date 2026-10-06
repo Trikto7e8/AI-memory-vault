@@ -4,60 +4,39 @@
 
 ## Scopo
 
-Memoria Vault è uno strato di memoria di proprietà dell’utente per assistenti personali. Conserva informazioni che la persona sceglie di ricordare, preferenze che guidano il comportamento dell’assistente ed eventualmente note vocali o altri contenuti. Lo stesso vault dovrebbe poter essere usato da applicazioni diverse nel tempo.
+AI Memoria Vault è la memoria personale e portatile di un assistente/agente di IA che l'utente sente come proprio. La memoria conserva i ricordi e le preferenze dell'utente, insieme alla personalità e all'identità dell'assistente — inclusi voce riconoscibile e avatar — così da ritrovarli su dispositivi diversi e usarli con modelli differenti. L'utente può cambiare modello LLM/AI senza perdere la memoria né la confidenza costruita con il proprio assistente e il contesto curato nel tempo.
 
-L’esperienza che immaginiamo è quella di un assistente personale che ti conosce perché porti con te la tua memoria e le tue impostazioni, non perché un fornitore costruisce di nascosto un profilo su di te. La prima prova dovrebbe essere piccola: salvare un progetto, aprire una nuova conversazione, ritrovare il contesto giusto e poter controllare e correggere ciò che è stato recuperato.
+La prova centrale è semplice: salvo un progetto e le mie preferenze, apro una nuova sessione su un altro dispositivo e con un altro modello, ritrovo il contesto pertinente e posso verificare, correggere o cancellare ciò che è stato recuperato.
 
-## Rapporto con Solphivia
+## Memoria e personalità sotto il controllo dell'utente
 
-Memoria Vault dovrebbe essere un componente indipendente, con interfacce documentate. Solphivia potrà essere la prima integrazione, ma formato e nucleo del vault non dovranno dipendere da Solphivia o da un singolo fornitore di modelli.
+L'utente decide cosa diventa un ricordo, ne vede provenienza e data, e può correggere, far scadere o cancellare ogni elemento. Il contesto temporaneo non diventa automaticamente memoria permanente. Le impostazioni della personalità — tono, stile, limiti, lingua e regole — si modificano indipendentemente dai ricordi fattuali.
 
-## La memoria è governata dall’utente
+Le categorie servono a organizzare, non a costruire profili nascosti: progetti, idee, preferenze, persone e relazioni scelte dall'utente, conoscenze di riferimento e continuità temporanea. Ogni suggerimento estratto da una conversazione resta in revisione finché l'utente non lo approva.
 
-L’utente decide cosa diventa un ricordo, può correggerlo, vederne la provenienza e l’età, e cancellarlo. La progettazione dovrebbe distinguere il contesto temporaneo dai ricordi duraturi, così che una singola conversazione non diventi automaticamente parte del profilo permanente.
+## Identità persistente dell'assistente
 
-Le impostazioni di comportamento e personalità sono dati controllati dall’utente: tono, livello di dettaglio, limiti, lingua e altre preferenze. Devono restare separate dai ricordi fattuali, così da poterle modificare o azzerare indipendentemente.
+Il profilo deve poter trasportare un'identità coerente: nome, descrizione, personalità, stile, voce/timbro, avatar e identificativi compatibili con i motori installati. Una descrizione vocale aiuta, ma non basta a riprodurre la stessa voce. Per mantenere il timbro tra dispositivi può servire un modello vocale privato cifrato, installato localmente o sincronizzato come asset cifrato quando l'utente lo autorizza.
 
-## Prime categorie da valutare
+La voce dell'assistente non è una registrazione o una nota vocale dell'utente. Un modello vocale/clonato e le immagini/avatar sono asset separati dai record di memoria, facoltativi e soggetti a consenso, diritti, cifratura, sincronizzazione e cancellazione specifici. Nessun asset viene caricato o usato per addestramento senza autorizzazione esplicita.
 
-Le categorie devono aiutare le persone a trovare e governare i ricordi, non trasformare la loro vita in un profilo nascosto. Un primo insieme da provare:
+## Indipendenza dai modelli e portabilità
 
-- **Progetti:** obiettivi, stato, decisioni, domande aperte e prossimi passi.
-- **Idee:** concetti ed esperimenti che l’utente vuole conservare.
-- **Preferenze:** lingua, tono, accessibilità e modalità di lavoro.
-- **Persone e relazioni:** solo informazioni che l’utente sceglie deliberatamente di conservare.
-- **Conoscenze di riferimento:** fatti e documenti che l’utente vuole ritrovare.
-- **Continuità delle conversazioni:** contesto di breve durata, con scadenza o promozione esplicita.
-- **Voce e contenuti multimediali:** registrazioni, trascrizioni e note derivate scelte dall’utente, mantenute come tipi di dati distinti.
+Lo schema della memoria, le impostazioni dell'assistente e il meccanismo di sincronizzazione non dipendono da un singolo LLM o provider. Gli adattatori traducono il profilo nel formato necessario al modello scelto. Le capacità variano: un modello potrebbe non rispettare alcune preferenze o non supportare una certa voce, ma il profilo portatile rimane dell'utente.
 
-Ogni ricordo dovrebbe riportare la provenienza, una data e, quando utile, un livello di confidenza o uno stato visibile all’utente. L’utente dovrebbe poter scegliere le categorie, crearne di proprie e decidere cosa l’assistente può recuperare in ogni contesto. Le informazioni estratte automaticamente da una conversazione devono poter essere riviste prima di diventare ricordi permanenti.
+Importazione ed esportazione sono locali e versionate. Gli importatori mostrano un'anteprima e permettono di scegliere cosa conservare. La sincronizzazione tra dispositivi usa cifratura end-to-end con coppie di chiavi per dispositivo; il servizio di trasporto non deve poter decifrare i contenuti. Finché protocollo, chiavi, recupero e revoca non sono implementati e revisionati, la sync resta un obiettivo progettuale.
 
-## Portabilità dei dati
+## Ricerca e modelli esterni
 
-Il vault dovrebbe avere un formato documentato e versionato, con identificativi stabili e regole di migrazione. Importazione ed esportazione dovrebbero funzionare senza account o server. Gli strumenti di importazione dovrebbero mostrare un’anteprima e lasciare scegliere cosa conservare.
+La memoria viene cercata sul dispositivo. Per interrogare il web, il client mostra la query esatta e invia solo la parte pubblica/sanificata approvata, senza allegare automaticamente i ricordi; i risultati vengono confrontati localmente. Qualunque invio di ricordi a un modello o servizio remoto richiede una schermata con destinatario e testo esatto e un consenso per quella singola richiesta. Una volta inviati, quei dati sono visibili al servizio per l'elaborazione: il vault non può mantenerli end-to-end privati.
 
-Un’esportazione dei dati OpenAI è una possibile prima fonte. Prima di assumere uno schema, dovremo esaminare un archivio di esempio. L’importazione dovrà essere locale e non inoltrare archivio o contenuti a servizi esterni.
+## Obiettivi iniziali
 
-## Voce e audio
+- Un nucleo locale persistente e categorizzato.
+- Un profilo portatile di personalità e identità dell'assistente.
+- Backup cifrato trasferibile e sync cifrata multi-dispositivo dopo revisione.
+- Adattatori intercambiabili per modelli locali o remoti con approvazione esplicita.
+- Asset vocali/avatar privati, facoltativi e distinti dalla memoria.
+- Importazione locale e revisionabile da diversi formati.
 
-Le tracce vocali possono comprendere registrazioni, trascrizioni, preferenze vocali o altri contenuti audio creati dall’utente. Il prodotto deve distinguere questi tipi e spiegare dove avviene l’elaborazione. Le registrazioni originali non dovrebbero essere conservate per impostazione predefinita quando basta una trascrizione o una preferenza derivata. Un modello vocale o una funzione di clonazione della voce richiederebbero consenso separato e controlli specifici contro gli abusi.
-
-## Servizi esterni
-
-Ricerca e modelli esterni possono essere utili, ma inviare ricordi privati è una divulgazione. L’interfaccia deve renderla concreta: indicare la destinazione e mostrare il contesto esatto che lascerà il dispositivo. L’utente deve poter scegliere una sola volta senza cambiare l’impostazione predefinita per le richieste future.
-
-Per una ricerca web pubblica, il percorso preferito è inviare una query che non includa ricordi privati e confrontare poi i risultati pubblici con i ricordi locali sul dispositivo. Se la personalizzazione richiede di condividere contesto privato, l’app dovrà mostrare esattamente cosa invierà e chiedere una scelta esplicita per quella richiesta.
-
-Un vault cifrato non può nascondere il testo in chiaro a un fornitore esterno dopo che l’utente glielo ha inviato. Il progetto non deve descrivere quel flusso come privato end-to-end.
-
-## Possibile architettura locale
-
-In precedenti conversazioni su Solphivia avevamo considerato un servizio di memoria locale su un notebook, consultabile anche dal telefono, insieme a modelli locali e strumenti per i documenti. Sono spunti d’integrazione, non dipendenze obbligatorie. Il vault portabile deve restare utilizzabile su un singolo dispositivo senza server; la sincronizzazione opzionale può arrivare in seguito e ogni server o relay dovrebbe ricevere soltanto dati cifrati.
-
-## Fuori ambito per la prima tappa
-
-- Costruire o addestrare un modello di base.
-- Registrare o dedurre automaticamente ricordi da ogni conversazione.
-- Un account cloud che possa recuperare il vault senza chiave o materiale di recupero dell’utente.
-- Dichiarare protezione da malware o da un dispositivo sbloccato e compromesso.
-- Inviare ricordi privati a modelli o servizi di ricerca senza una scelta chiara per ogni utilizzo.
+Il repository contiene un prototipo sperimentale; non è stato sottoposto ad audit e non va usato con dati personali reali.

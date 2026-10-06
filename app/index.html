@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102c35">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <title>AI Memoria Vault - prototipo locale</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#">AI Memoria <span>Vault</span></a>
+      <button id="lock-button" class="quiet hidden" type="button">Blocca</button>
+    </header>
+
+    <main>
+      <section id="privacy-banner" class="notice" aria-label="Avviso di sicurezza">
+        <strong>Prototipo sperimentale.</strong> I dati restano in questo browser e vengono cifrati localmente. La crittografia non è stata sottoposta ad audit: usa solo dati di prova, mai ricordi personali reali.
+        Questa versione non contatta modelli o servizi esterni. Il vault si blocca dopo 10 minuti senza interazioni.
+      </section>
+
+      <section id="locked-view" class="panel">
+        <p class="eyebrow">Il tuo archivio, sotto il tuo controllo</p>
+        <h1 id="lock-title">Crea il vault locale</h1>
+        <p id="lock-description">Scegli una passphrase lunga e conservala al sicuro: non può essere recuperata. Protegge localmente la chiave privata e serve per sbloccare o importare il vault su un altro dispositivo.</p>
+        <form id="unlock-form">
+          <label for="passphrase">Passphrase</label>
+          <input id="passphrase" type="password" autocomplete="current-password" minlength="12" required>
+          <button id="unlock-submit" class="primary" type="submit">Crea vault</button>
+        </form>
+        <button id="cancel-import" class="quiet hidden" type="button">Annulla importazione</button>
+        <p id="lock-status" class="status" role="status" aria-live="polite"></p>
+        <div class="import-row">
+          <label class="file-button" for="import-file">Importa un backup cifrato</label>
+          <input id="import-file" type="file" accept=".mvault,application/json" hidden>
+        </div>
+      </section>
+
+      <section id="vault-view" class="hidden" aria-label="Contenuto del vault">
+        <div class="intro">
+        <p class="eyebrow">La memoria del tuo assistente, indipendente dal modello</p>
+          <h1>Il tuo spazio locale</h1>
+          <p>Ricordi, personalità e identità dell’assistente sono portatili. Nessun modello è collegato: questa app non invia dati fuori dal dispositivo.</p>
+        </div>
+
+        <div class="toolbar">
+          <label class="search-label" for="search">Cerca nel vault</label>
+          <input id="search" type="search" placeholder="Titolo, categoria, tag o testo">
+          <button id="export-button" class="secondary" type="button">Esporta backup cifrato</button>
+          <button id="delete-vault" class="danger" type="button">Elimina vault locale</button>
+        </div>
+        <p id="vault-status" class="status" role="status" aria-live="polite"></p>
+
+        <section class="panel context-preview" aria-labelledby="context-preview-title">
+          <p class="eyebrow">Recupero soltanto sul dispositivo</p>
+          <h2 id="context-preview-title">Anteprima dei ricordi per una richiesta</h2>
+          <p class="muted">Questa schermata cerca ricordi approvati nel vault e mostra cosa potrebbe essere utile. Non è collegato alcun modello: nulla viene inviato o condiviso. I ricordi sensibili sono esclusi salvo selezione esplicita qui sotto.</p>
+          <form id="context-preview-form" class="stack">
+            <label for="context-purpose">Per quale scopo?</label>
+            <input id="context-purpose" maxlength="1000" required placeholder="es. aiutarmi a riprendere il progetto">
+            <label for="context-request">Richiesta da usare nell'anteprima</label>
+            <textarea id="context-request" rows="3" maxlength="12000" required placeholder="Scrivi una richiesta di prova"></textarea>
+            <label class="check-row"><input id="context-include-sensitive" type="checkbox"> Includi anche i ricordi segnati come sensibili in questa anteprima locale</label>
+            <div class="button-row">
+              <button class="primary" type="submit">Genera anteprima locale</button>
+              <button id="context-preview-clear" class="secondary" type="button">Cancella anteprima</button>
+            </div>
+          </form>
+          <div id="context-preview-result" class="context-result" aria-live="polite"></div>
+        </section>
+
+        <div class="layout">
+          <section class="panel">
+            <div class="section-heading"><div><p class="eyebrow">Archivio personale</p><h2>Ricordi</h2></div><span id="memory-count" class="count">0</span></div>
+            <div id="memory-list" class="memory-list"></div>
+          </section>
+
+          <div class="side-column">
+            <section class="panel">
+              <p class="eyebrow">Curato da te</p>
+              <h2 id="memory-form-title">Aggiungi un ricordo</h2>
+              <form id="memory-form" class="stack">
+                <input id="memory-id" type="hidden">
+                <label for="memory-title">Titolo</label>
+                <input id="memory-title" maxlength="120" required>
+                <label for="memory-category">Categoria</label>
+                <select id="memory-category">
+                  <option value="progetti">Progetti</option>
+                  <option value="preferenze">Preferenze</option>
+                  <option value="idee">Idee</option>
+                  <option value="persone">Persone</option>
+                  <option value="altro">Altro</option>
+                </select>
+                <label for="memory-content">Contenuto</label>
+                <textarea id="memory-content" rows="5" maxlength="12000" required></textarea>
+                <label for="memory-tags">Tag <span class="muted">separati da virgola</span></label>
+                <input id="memory-tags" placeholder="es. progetto, da rivedere">
+                <label class="check-row"><input id="memory-sensitive" type="checkbox"> Segna come sensibile</label>
+                <div class="button-row">
+                  <button id="memory-submit" class="primary" type="submit">Salva nel vault</button>
+                  <button id="memory-cancel" class="quiet hidden" type="button">Annulla modifica</button>
+                </div>
+              </form>
+            </section>
+
+            <section class="panel">
+              <p class="eyebrow">Separato dai ricordi</p>
+              <h2>Personalità e identità dell’assistente</h2>
+              <form id="profile-form" class="stack">
+                <label for="assistant-name">Nome dell’assistente</label>
+                <input id="assistant-name" maxlength="120" placeholder="Come si chiama il tuo assistente?">
+                <label for="assistant-description">Personalità e identità</label>
+                <textarea id="assistant-description" rows="3" maxlength="2000" placeholder="Chi è, che carattere ha, come vuoi che si presenti"></textarea>
+                <label for="assistant-avatar-description">Avatar: descrizione o riferimento</label>
+                <input id="assistant-avatar-description" maxlength="1000" placeholder="Descrivi l’avatar che vuoi ritrovare sui dispositivi">
+                <p class="muted">Il prototipo salva la descrizione, non il file immagine dell’avatar.</p>
+                <label for="profile-language">Lingua</label>
+                <input id="profile-language" value="Italiano">
+                <label for="profile-tone">Tono e stile</label>
+                <textarea id="profile-tone" rows="3" placeholder="Come preferisci che risponda?"></textarea>
+                <label for="profile-response-length">Lunghezza delle risposte</label>
+                <select id="profile-response-length"><option value="brief">Breve</option><option value="balanced">Bilanciata</option><option value="detailed">Dettagliata</option></select>
+                <label for="profile-rules">Preferenze di risposta <span class="muted">una voce per riga</span></label>
+                <textarea id="profile-rules" rows="4"></textarea>
+                <label for="profile-boundaries">Limiti da rispettare <span class="muted">una voce per riga</span></label>
+                <textarea id="profile-boundaries" rows="3"></textarea>
+                <label for="voice-description">Voce dell’assistente: timbro e caratteristiche</label>
+                <textarea id="voice-description" rows="2" placeholder="Descrivi la voce riconoscibile che vuoi mantenere: timbro, accento, qualità"></textarea>
+                <label for="voice-language">Lingua della voce</label>
+                <input id="voice-language" placeholder="Italiano">
+                <label for="voice-accent">Accento e pronuncia</label>
+                <textarea id="voice-accent" rows="2" maxlength="1000" placeholder="Descrivi l'accento o la pronuncia desiderata"></textarea>
+                <label for="voice-label">Nome del profilo vocale</label>
+                <input id="voice-label" maxlength="120" placeholder="Etichetta da ritrovare tra i dispositivi">
+                <label for="voice-identity-id">ID stabile del profilo vocale</label>
+                <input id="voice-identity-id" maxlength="120" placeholder="Identificativo fornito dal motore vocale, se disponibile">
+                <label for="voice-engine-id">Motore vocale compatibile</label>
+                <input id="voice-engine-id" maxlength="120" placeholder="ID del motore o dell’adattatore vocale">
+                <label for="voice-pace">Ritmo preferito</label>
+                <select id="voice-pace"><option value="natural">Naturale</option><option value="slow">Lento</option><option value="fast">Veloce</option></select>
+                <label class="check-row"><input id="read-aloud" type="checkbox"> Voglio che il mio assistente mi parli ad alta voce</label>
+                <p class="muted">Queste impostazioni identificano la voce desiderata, ma non contengono né trasferiscono un modello vocale. La stessa timbrica tra dispositivi richiederà un motore compatibile e un asset vocale cifrato, ancora da implementare.</p>
+                <button class="secondary" type="submit">Salva profilo</button>
+              </form>
+            </section>
+            <section class="panel">
+              <p class="eyebrow">Sicurezza locale</p>
+              <h2>Cambia passphrase</h2>
+              <p class="muted">Questa operazione ricifra la chiave privata protetta dalla passphrase. Non modifica i ricordi, la chiave dati o la sincronizzazione tra dispositivi. I backup esportati prima del cambio continuano a usare la vecchia passphrase: esportane uno nuovo.</p>
+              <form id="passphrase-form" class="stack" autocomplete="off">
+                <label for="current-passphrase">Passphrase attuale</label>
+                <input id="current-passphrase" type="password" autocomplete="current-password" minlength="12" required>
+                <label for="new-passphrase">Nuova passphrase</label>
+                <input id="new-passphrase" type="password" autocomplete="new-password" minlength="12" required>
+                <label for="confirm-new-passphrase">Ripeti la nuova passphrase</label>
+                <input id="confirm-new-passphrase" type="password" autocomplete="new-password" minlength="12" required>
+                <button class="secondary" type="submit">Aggiorna passphrase</button>
+              </form>
+              <p id="passphrase-status" class="status" role="status" aria-live="polite"></p>
+            </section>
+          </div>
+        </div>
+
+        <section class="panel boundary">
+          <p class="eyebrow">Nessun collegamento automatico</p>
+          <h2>Lo stesso assistente, con il modello che scegli</h2>
+          <p>La memoria e l’identità dell’assistente non appartengono a un modello specifico. Gli adattatori saranno moduli separati: prima di inviare un ricordo a un servizio remoto dovranno mostrare il destinatario e il testo esatto e chiederti un consenso valido per quella sola richiesta. Questa versione non implementa ancora gli adattatori.</p>
+        </section>
+      </section>
+    </main>
+
+    <footer>AI Memoria Vault · dati di prova soltanto · nessuna connessione esterna</footer>
+  </body>
+</html>

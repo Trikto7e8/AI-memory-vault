@@ -2,16 +2,14 @@
 
 [English](CONTRIBUTING.md) | [Italiano](CONTRIBUTING.it.md)
 
-Thanks for your interest in Memoria Vault. The project is at the concept stage, so discussion and design review are especially useful.
+Thank you for contributing to AI Memoria Vault. The project has an experimental prototype and welcomes help with portable formats, local UX, accessibility, interoperability, and security review.
 
-## Before opening a change
+## Before proposing a change
 
-- For a substantial change, open an issue describing the problem and proposed approach first.
-- Do not include real personal data, recordings, vault files, credentials, or provider exports in issues, pull requests, or test fixtures.
-- Keep privacy and security claims precise. Describe what an attacker or service can still see.
-- For changes to encryption, key handling, sync, import/export, or audio processing, explain the threat-model impact and request security review.
-- Prefer small changes that can be reviewed independently.
+- For substantial changes, open a discussion describing the problem and proposed approach.
+- Do not put personal memories, exports, backups, keys, voice samples, or avatar assets in issues, pull requests, examples, or tests.
+- Keep privacy and security claims precise; state what devices, servers, and models can see.
+- Changes to cryptography, keys, sync, import, or identity assets need security review.
+- Prefer small, documented, reviewable changes.
 
-## Current state
-
-There is no application code yet. The project uses the [Apache License 2.0](LICENSE). The first collaborative steps are to review the [vision](docs/vision.md), [architecture notes](docs/architecture.md), [security principles](docs/security-principles.md), and [roadmap](docs/roadmap.md).
+The project uses the Apache License 2.0. See the [vision](docs/vision.md), [architecture](docs/architecture.md), [threat model](docs/threat-model.md), and [roadmap](docs/roadmap.md).

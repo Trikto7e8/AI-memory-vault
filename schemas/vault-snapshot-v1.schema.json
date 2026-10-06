@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Memoria Vault portable snapshot v1",
+  "description": "Plaintext shape used only in unlocked device memory. Persist and transfer it only inside an encrypted envelope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "schemaVersion", "vaultId", "exportedAt", "profile", "memories"],
+  "properties": {
+    "format": { "const": "memoria-vault" },
+    "schemaVersion": { "const": 1 },
+    "vaultId": { "type": "string", "format": "uuid" },
+    "exportedAt": { "type": "string", "format": "date-time" },
+    "profile": { "$ref": "#/$defs/assistantProfile" },
+    "memories": { "type": "array", "maxItems": 10000, "items": { "$ref": "#/$defs/memoryRecord" } }
+  },
+  "$defs": {
+    "assistantProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "language", "behavior"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "language": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "assistantId": { "type": "string", "maxLength": 80 },
+            "name": { "type": "string", "maxLength": 120 },
+            "description": { "type": "string", "maxLength": 2000 },
+            "avatarDescription": { "type": "string", "maxLength": 1000 },
+            "avatarAssetId": { "type": "string", "maxLength": 200 }
+          }
+        },
+        "behavior": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["rules", "boundaries"],
+          "properties": {
+            "tone": { "type": "string", "maxLength": 2000 },
+            "responseLength": { "enum": ["brief", "balanced", "detailed"] },
+            "rules": { "type": "array", "maxItems": 100, "items": { "type": "string", "maxLength": 1000 } },
+            "boundaries": { "type": "array", "maxItems": 100, "items": { "type": "string", "maxLength": 1000 } }
+          }
+        },
+        "voice": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["readAloud"],
+          "properties": {
+            "readAloud": { "type": "boolean" },
+            "voiceIdentityId": { "type": "string", "maxLength": 120 },
+            "language": { "type": "string", "maxLength": 80 },
+            "timbreDescription": { "type": "string", "maxLength": 1000 },
+            "accentDescription": { "type": "string", "maxLength": 1000, "description": "Accent and pronunciation, separate from timbreDescription." },
+            "pace": { "enum": ["slow", "natural", "fast"] },
+            "preferredVoiceLabel": { "type": "string", "maxLength": 120 },
+            "engineId": { "type": "string", "maxLength": 120 },
+            "voiceModelAssetId": { "type": "string", "maxLength": 200 }
+          }
+        }
+      }
+    },
+    "memoryRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "id", "kind", "category", "title", "content", "tags", "status", "sensitivity", "source", "createdAt", "updatedAt"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "id": { "type": "string", "format": "uuid" },
+        "kind": { "enum": ["fact", "preference", "project", "note", "voice-preference"] },
+        "category": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "content": { "type": "string", "maxLength": 12000 },
+        "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string", "maxLength": 80 } },
+        "status": { "enum": ["suggested", "approved", "archived"] },
+        "sensitivity": { "enum": ["ordinary", "sensitive"] },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "capturedAt"],
+          "properties": {
+            "type": { "enum": ["user-authored", "conversation-import", "assistant-suggestion"] },
+            "label": { "type": "string", "maxLength": 300 },
+            "capturedAt": { "type": "string", "format": "date-time" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

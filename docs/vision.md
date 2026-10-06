@@ -4,60 +4,39 @@
 
 ## Purpose
 
-Memoria Vault is a user-owned memory layer for personal assistants. It stores facts the user chooses to remember, preferences that shape the assistant's behavior, and optionally voice notes or other media. The same vault should be usable by different assistant applications over time.
+AI Memoria Vault is the personal, portable memory of an AI assistant/agent that the user experiences as their own. The memory preserves the user's memories and preferences together with the assistant's personality and identity—including a recognizable voice and avatar—so they can be carried across devices and used with different models. The user can switch LLM/AI models without losing their memory, the familiarity and rapport built with their assistant, or the context curated over time.
 
-The intended experience is a personal assistant that feels familiar because the person carries their own memory and settings with them—not because a provider silently accumulates a profile. The first proof should be small: save one project, start a fresh conversation, retrieve the right context, and let the user inspect and correct what was recalled.
+The central proof is simple: I save a project and my preferences, start a fresh session on another device and another model, retrieve relevant context, and can inspect, correct, or delete what was recalled.
 
-## Relationship to Solfivia
+## User-controlled memory and personality
 
-Memoria Vault should be designed as an independent component with documented interfaces. Solfivia may be its first integration, but the vault's format and core should not depend on Solfivia or any one model provider.
+The user decides what becomes a memory, sees its source and date, and can correct, expire, or delete it. Temporary context does not automatically become permanent memory. Personality settings—tone, style, boundaries, language, and rules—can be changed independently from factual memories.
 
-## Memory is user-governed
+Categories help organize information without creating hidden profiles: projects, ideas, preferences, people and relationships the user chooses to keep, reference knowledge, and temporary continuity. Suggestions extracted from a conversation remain pending review until the user approves them.
 
-The user decides what becomes a memory, can correct it, can see its source and age, and can remove it. The design should support temporary context as well as durable memories, so a one-time conversation does not automatically become part of a lasting profile.
+## Persistent assistant identity
 
-Behavior and personality settings are data the user controls: tone, preferred level of detail, boundaries, language preferences, and other choices. They should remain distinct from factual memories so users can edit or reset each independently.
+The profile should carry a coherent identity: name, description, personality, style, voice/timbre, avatar, and identifiers compatible with installed engines. A voice description helps but cannot reproduce the same voice by itself. Preserving timbre across devices may require a private encrypted voice model, installed locally or synchronized as an encrypted asset when the user authorizes it.
 
-## A useful first set of categories
+The assistant's voice is not a recording or voice note from the user. A voice/cloned model and avatar images are assets separate from memory records, optional, and governed by specific consent, rights, encryption, sync, and deletion. No asset is uploaded or used for training without explicit authorization.
 
-Categories should help people find and govern memories, not turn the user's life into a hidden profile. A starting set to test is:
+## Model independence and portability
 
-- **Projects:** goals, status, decisions, open questions, and next steps.
-- **Ideas:** concepts and experiments the user wants to keep.
-- **Preferences:** language, tone, accessibility, and working preferences.
-- **People and relationships:** only information the user deliberately chooses to retain.
-- **Reference knowledge:** facts and documents the user wants available later.
-- **Conversation continuity:** short-lived context with a clear expiry or promotion action.
-- **Voice and media:** recordings, transcripts, and user-selected derived notes, kept as distinct data types.
+Memory schema, assistant settings, and sync mechanisms do not depend on one LLM or provider. Adapters translate the profile into the format required by the selected model. Capabilities vary: a model may not follow every preference or support a particular voice, but the portable profile remains user-owned.
 
-Each memory should carry provenance (where it came from), a timestamp, and a user-visible confidence or status where useful. The user should be able to choose categories, create their own, and decide what the assistant can retrieve in each context. Automatic extraction should always be reviewable before it becomes durable memory.
+Import and export are local and versioned. Importers preview findings and let the user choose what to keep. Cross-device sync uses end-to-end encryption with per-device key pairs; the transport service must not be able to decrypt content. Until protocol, keys, recovery, and revocation are implemented and reviewed, sync remains a design goal.
 
-## Data portability
+## External search and models
 
-The vault should have a documented, versioned format with stable identifiers and migration rules. Import and export should work without an account or server. Importers should preview their findings and let the user choose what to keep.
+Memory is searched on-device. For web lookups, the client previews the exact query and sends only the approved public/sanitized part, without automatically attaching memories; results are compared locally. Any memory sent to a remote model or service requires a screen showing the destination and exact text plus consent for that request only. Once sent, that data is visible to the service for processing: the vault cannot keep it end-to-end private.
 
-An OpenAI data export is a possible first import source. The project should not assume a particular export schema until a sample is provided and its formats are inspected. An importer should run locally and should not forward the export or its contents to an external service.
+## Initial goals
 
-## Voice and audio
+- A persistent, categorized local core.
+- A portable profile for the assistant's personality and identity.
+- Transferable encrypted backup and multi-device encrypted sync after review.
+- Swappable adapters for local or remote models with explicit approval.
+- Private, optional voice/avatar assets kept separate from memory.
+- Local, reviewable import from different formats.
 
-Voice traces may include recordings, transcripts, voice preferences, or other user-created audio. The product must distinguish these data types and explain where processing happens. Raw recordings should not be retained by default when a derived transcript or setting is enough. Any voice model or voice cloning feature would need separate, explicit consent and careful abuse controls.
-
-## External services
-
-Search and model providers can be useful, but a request containing private memories is a disclosure. The interface should make that disclosure concrete: identify the destination and preview the exact context that will leave the device. The user should be able to make a one-time choice without changing the default for future requests.
-
-For public web search, the preferred path is to send a query that does not include private memories, then compare returned public results with local memories on the device. If personalization requires sharing private context, the app must preview exactly what will be sent and ask for an explicit, one-time choice.
-
-An encrypted vault cannot hide plaintext from an external provider after the user sends it there. The project must not describe that flow as end-to-end private.
-
-## Candidate local-first topology
-
-Earlier Solphivia discussions considered a local memory service on a notebook that a phone could reach, as well as local models and document tools. These are useful integration ideas, not fixed dependencies. The portable vault should remain usable on one device without a server; optional device-to-device sync can be added later, and any relay or server should only receive ciphertext.
-
-## Non-goals for the first milestone
-
-- Building or training a foundation model.
-- Automatically recording or inferring memories from every conversation.
-- A cloud account that can recover the user's vault without their key or recovery material.
-- Claiming protection from malware or a compromised, unlocked device.
-- Sending private memories to a provider without a clear, per-use user choice.
+The repository contains an experimental prototype; it has not been audited and must not be used with real personal data.

@@ -32,7 +32,9 @@ Il modello delle minacce deve spiegare quali di questi rischi il prodotto può r
 - Non inserire mai in Git chiavi, segreti, vault reali o audio personali.
 - Usare dati di esempio sintetici e contrassegnarli chiaramente.
 - Escludere per impostazione predefinita contenuti privati da log, telemetria, analisi e rapporti di arresto anomalo.
-- Spiegare export, cancellazione, backup e recupero prima che l’utente vi faccia affidamento.
+- Quando si blocca il vault, cancellare i valori decifrati dall'interfaccia; descrivere l'azzeramento della memoria solo come tentativo, perché i browser non garantiscono la rimozione di ogni copia in chiaro.
+- Spiegare export, cancellazione, backup e recupero prima che l'utente vi faccia affidamento.
+- Distinguere il cambio della passphrase dalla rotazione delle chiavi dei dispositivi; i backup esportati in precedenza conservano la protezione della passphrase originale.
 - Tenere sotto controllo le dipendenze crittografiche e aggiornarle in risposta agli avvisi di sicurezza.
 - Organizzare una revisione indipendente prima di dichiarare la cifratura end-to-end.
 
