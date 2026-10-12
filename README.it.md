@@ -40,16 +40,16 @@ La cartella [`app/`](app/) contiene un prototipo web locale per creare, cercare,
 Dalla cartella principale del repository, avvia un server statico. Su Windows:
 
 ```powershell
-py -m http.server 8000
+py -m http.server 8000 --bind 127.0.0.1
 ```
 
 Su macOS o Linux, usa Python 3:
 
 ```sh
-python3 -m http.server 8000
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Apri poi `http://localhost:8000/app/`. Il prototipo cifra localmente il vault e il backup manuale è trasferibile, ma non sincronizza i dispositivi e riusa la stessa coppia di chiavi protetta da passphrase. La coppia distinta per ogni dispositivo e la sync sono descritte come progetto in [sync-protocol](docs/sync-protocol.it.md), non sono funzioni operative. Web Crypto non è stata revisionata né sottoposta ad audit: usa solo dati sintetici e tieni i backup fuori dal repository.
+L'opzione `--bind 127.0.0.1` limita il server di sviluppo al dispositivo in uso (non alla rete locale). Apri poi `http://127.0.0.1:8000/app/` sullo stesso dispositivo. Non esporre questo prototipo sperimentale ad altri dispositivi o a Internet. Il prototipo cifra localmente il vault e il backup manuale è trasferibile, ma non sincronizza i dispositivi e riusa la stessa coppia di chiavi protetta da passphrase. La coppia distinta per ogni dispositivo e la sync sono descritte come progetto in [sync-protocol](docs/sync-protocol.it.md), non sono funzioni operative. Web Crypto non è stata revisionata né sottoposta ad audit: usa solo dati sintetici e tieni i backup fuori dal repository.
 
 ## Documentazione
 

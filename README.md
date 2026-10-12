@@ -38,16 +38,16 @@ The [`app/`](app/) folder contains a local web prototype to create, search, edit
 From the repository root, start a static server. On Windows:
 
 ```powershell
-py -m http.server 8000
+py -m http.server 8000 --bind 127.0.0.1
 ```
 
 On macOS or Linux, use Python 3:
 
 ```sh
-python3 -m http.server 8000
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Then open `http://localhost:8000/app/`. The prototype encrypts the vault locally and its manual backup is portable, but it does not sync devices and reuses the same passphrase-protected key pair. Separate per-device keys and sync are described in [sync-protocol](docs/sync-protocol.md) as a design, not as operational features. Web Crypto has not been reviewed or audited: use synthetic data only and keep backups outside the repository.
+The `--bind 127.0.0.1` option restricts this development server to your own device (not the local network). Then open `http://127.0.0.1:8000/app/` on that same device. Do not expose this experimental prototype to other devices or the internet. The prototype encrypts the vault locally and its manual backup is portable, but it does not sync devices and reuses the same passphrase-protected key pair. Separate per-device keys and sync are described in [sync-protocol](docs/sync-protocol.md) as a design, not as operational features. Web Crypto has not been reviewed or audited: use synthetic data only and keep backups outside the repository.
 
 ## Documentation
 
