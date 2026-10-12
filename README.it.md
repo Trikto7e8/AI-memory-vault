@@ -37,10 +37,16 @@ Con il vault sbloccato puoi cambiare passphrase. L'app ricifra l'involucro local
 
 La cartella [`app/`](app/) contiene un prototipo web locale per creare, cercare, modificare, approvare, archiviare ed eliminare ricordi testuali, salvare preferenze di personalità e voce dell'assistente, generare un'anteprima locale ed esportare/importare un backup cifrato. Non supporta ancora note vocali o allegati audio. L'anteprima non contatta modelli o servizi esterni. Il formato non dipende da un modello. Non sono ancora implementati la sincronizzazione automatica, gli adattatori ai modelli, la portabilità reale di avatar/modelli vocali o l'importazione multi-formato.
 
-Su Windows, dalla cartella principale del repository avvia un server statico:
+Dalla cartella principale del repository, avvia un server statico. Su Windows:
 
 ```powershell
 py -m http.server 8000
+```
+
+Su macOS o Linux, usa Python 3:
+
+```sh
+python3 -m http.server 8000
 ```
 
 Apri poi `http://localhost:8000/app/`. Il prototipo cifra localmente il vault e il backup manuale è trasferibile, ma non sincronizza i dispositivi e riusa la stessa coppia di chiavi protetta da passphrase. La coppia distinta per ogni dispositivo e la sync sono descritte come progetto in [sync-protocol](docs/sync-protocol.it.md), non sono funzioni operative. Web Crypto non è stata revisionata né sottoposta ad audit: usa solo dati sintetici e tieni i backup fuori dal repository.

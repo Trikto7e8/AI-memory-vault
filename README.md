@@ -35,10 +35,16 @@ While unlocked, you can change the passphrase. The app re-encrypts the locally s
 
 The [`app/`](app/) folder contains a local web prototype to create, search, edit, approve, archive, and delete text memories; save assistant personality and voice preferences; generate a local preview; and export/import an encrypted backup. It does not yet support voice notes or audio attachments. The preview does not contact models or external services. The format does not depend on a model. Automatic sync, model adapters, actual avatar/voice-model portability, and multi-format import are not implemented yet.
 
-On Windows, start a static server from the repository root:
+From the repository root, start a static server. On Windows:
 
 ```powershell
 py -m http.server 8000
+```
+
+On macOS or Linux, use Python 3:
+
+```sh
+python3 -m http.server 8000
 ```
 
 Then open `http://localhost:8000/app/`. The prototype encrypts the vault locally and its manual backup is portable, but it does not sync devices and reuses the same passphrase-protected key pair. Separate per-device keys and sync are described in [sync-protocol](docs/sync-protocol.md) as a design, not as operational features. Web Crypto has not been reviewed or audited: use synthetic data only and keep backups outside the repository.
