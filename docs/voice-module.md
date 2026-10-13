@@ -1,8 +1,8 @@
-# Voice identity continuity module
+# Optional voice metadata and consent boundary
 
 [English](voice-module.md) | [Italiano](voice-module.it.md)
 
-This module concerns the voice the assistant speaks with: the goal is to carry its timbre, recognizable voice, and avatar across devices and models. Personal voice notes are the user's memories; the prototype does not store voice notes or voice models.
+This optional contract describes voice-related preferences and consent boundaries for external clients. AI Memory Vault is not a voice synthesis, voice cloning, avatar, or mobile assistant application. Personal voice notes would be user-owned memories; the current prototype does not store audio or voice models.
 
 ## Identity settings and separate assets
 
@@ -13,7 +13,7 @@ The portable profile stores timbre separately from accent and pronunciation pref
 - Labels and descriptions cannot guarantee the same voice; actual continuity may require a compatible voice model that the device can run.
 - The current prototype stores descriptive preferences only; it does not store or generate a voice model or avatar.
 
-## Requirements for a future voice engine
+## Requirements for an external voice client
 
 - Optional and disabled by default.
 - Use voices owned by the user, with explicit permission from the represented person, or synthetic models under a compatible license. Voice-use consent is separate from consent to use memories.
@@ -24,4 +24,4 @@ The portable profile stores timbre separately from accent and pronunciation pref
 - Encrypt the returned model in the vault before storage; clear plaintext buffers as soon as practical.
 - Allow revocation and asset deletion, and clearly state that copies already downloaded or received by a service cannot be recalled.
 
-The initial TypeScript contract is in `src/voice/`. The gate requires a short-lived, single-use consent bound to the engine, selected sample, language, voice description, and processing location. Any attempt to consume the consent spends it, including a target mismatch; retrying requires a new explicit confirmation. No engine is connected.
+The optional TypeScript consent contract is in `src/voice/`. It does not implement an engine or provide avatar rendering. The gate requires a short-lived, single-use consent bound to the engine, selected sample, language, voice description, and processing location. Any attempt to consume the consent spends it, including a target mismatch; retrying requires a new explicit confirmation. No engine is connected.
