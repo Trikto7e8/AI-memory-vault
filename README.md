@@ -13,7 +13,7 @@ AI Memory Vault is an open-source project for keeping, under the user's control,
 - User-curated, categorized personal memory, including AI preferences and personal voice notes.
 - The ability to change AI/LLM models without losing the memory or the sense of familiarity built with the assistant.
 - A portable profile for the assistant the user usually works with: recognizable voice, personality, behavior, instructions, boundaries, and preferences.
-- A recognizable assistant identity: voice/timbre and avatar, carried with the profile.
+- Optional, generic profile descriptions (including voice and avatar preferences) that other applications may read; voice synthesis, avatar rendering, and interaction belong to those applications.
 - A format independent of models and providers, for local, free, or commercial models.
 - Cross-device synchronization with end-to-end encryption, explicit device enrollment, and private keys kept under the user's control.
 - A signed, conflict-aware revision history inspired by hash chains, without a public blockchain or public personal-data ledger.
@@ -21,11 +21,15 @@ AI Memory Vault is an open-source project for keeping, under the user's control,
 - Guided, local import from different assistant conversation-export formats.
 - Open formats and documented interfaces so the community can contribute.
 
+## Scope: a memory vault, not an assistant application
+
+AI Memory Vault is a **standalone, model- and brand-neutral memory component**. It stores and exports user-approved memories and optional preference metadata; it does not implement a mobile assistant, an on-screen avatar, speech synthesis, voice cloning, or a conversational UI connected to an LLM. These are separate client applications and may integrate with the vault only through explicit interfaces and consent. No particular assistant or character is required to use this project.
+
 ## Privacy and assistant identity
 
 Memory and profile stay on-device by default. Future sync must carry only encrypted packages; the service may still observe metadata such as size and timing. When a remote model is used, the request and approved data are sent in plaintext to the provider for processing: the UI must preview the exact text and ask for consent for that request only.
 
-Voice means the voice the assistant speaks with and its continuity across devices: timbre, accent and pronunciation, voice profile or private voice model, language, pace, and engine identifier. The local prototype stores timbre and accent as separate profile fields. Any voice model and avatar are separate, optional, encrypted private assets; creating or sharing them requires specific consent. A label or description alone cannot guarantee that different engines reproduce the same voice.
+Optional voice settings are descriptive preferences for an external client: timbre, accent and pronunciation, language, pace, and engine identifiers. The local prototype stores timbre and accent in separate profile fields. It does not create, play, or manage a voice model or avatar. Any future exchange of private media assets with a separate client would need its own consent, security review, and storage design. Descriptions alone cannot reproduce a voice or render an avatar.
 
 ## Local prototype
 
@@ -33,7 +37,7 @@ The prototype automatically locks the vault after ten minutes without interactio
 
 While unlocked, you can change the passphrase. The app re-encrypts the locally stored private-key envelope and leaves the vault data key and encrypted memory payload unchanged. Previously exported backups still require their original passphrase; export a fresh backup after changing it. This is not device-key rotation.
 
-The [`app/`](app/) folder contains a local web prototype to create, search, edit, approve, archive, and delete text memories; save assistant personality and voice preferences; generate a local preview; and export/import an encrypted backup. It does not yet support voice notes or audio attachments. The preview does not contact models or external services. The format does not depend on a model. Automatic sync, model adapters, actual avatar/voice-model portability, and multi-format import are not implemented yet.
+The [`app/`](app/) folder contains a local web prototype to create, search, edit, approve, archive, and delete text memories; save assistant personality and voice preferences; generate a local preview; and export/import an encrypted backup. It does not yet support voice notes or audio attachments. The preview does not contact models or external services. The format does not depend on a model. Automatic sync, model adapters, media asset portability, and multi-format import are not implemented yet. An animated avatar, voice playback, and the mobile assistant UI are outside this repository's scope.
 
 From the repository root, start a static server. On Windows:
 
@@ -51,7 +55,7 @@ The `--bind 127.0.0.1` option restricts this development server to your own devi
 
 ## Documentation
 
-The reusable runtime entry point is [`src/index.js`](src/index.js); [`src/index.ts`](src/index.ts) adds the sync contracts and the optional voice module with separate consent. The core provides an encrypted vault session over a storage interface that handles encrypted-envelope bytes only. Atomic creation and compare-and-swap updates prevent two local sessions from silently overwriting each other. The reusable IndexedDB adapter is exported from the core and retains compatibility with envelopes saved by the earlier prototype. Memory operations and local retrieval are independent of any model. The browser prototype uses the same runtime entry point and requires no package installation.
+The reusable runtime entry point is [`src/index.js`](src/index.js); [`src/index.ts`](src/index.ts) adds the sync contracts and an optional voice-related consent contract (not a speech engine). The core provides an encrypted vault session over a storage interface that handles encrypted-envelope bytes only. Atomic creation and compare-and-swap updates prevent two local sessions from silently overwriting each other. The reusable IndexedDB adapter is exported from the core and retains compatibility with envelopes saved by the earlier prototype. Memory operations and local retrieval are independent of any model. The browser prototype uses the same runtime entry point and requires no package installation.
 
 - [Project vision](docs/vision.md)
 - [Using the local vault core](docs/core-api.md)
@@ -59,7 +63,7 @@ The reusable runtime entry point is [`src/index.js`](src/index.js); [`src/index.
 - [Threat model](docs/threat-model.md)
 - [Vault, model, and search boundary](docs/provider-boundary.md)
 - [Encrypted sync design](docs/sync-protocol.md)
-- [Voice identity continuity](docs/voice-module.md)
+- [Optional voice metadata and consent boundary](docs/voice-module.md)
 - [Roadmap](docs/roadmap.md)
 - [Data schema](schemas/vault-snapshot-v1.schema.json)
 - [Shared snapshot validator](src/core/snapshot-validation.js)

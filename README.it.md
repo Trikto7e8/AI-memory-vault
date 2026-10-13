@@ -13,7 +13,7 @@ AI Memory Vault è un progetto open source per custodire, sotto il controllo del
 - Memoria personale categorizzata e curata dall’utente, con preferenze IA e note vocali personali.
 - Possibilità per l’utente di cambiare modello di IA/LLM senza perdere la memoria né la confidenza costruita con il proprio assistente.
 - Profilo portatile dell’assistente abitualmente usato: voce riconoscibile, personalità, comportamento, istruzioni, limiti e preferenze.
-- Identità riconoscibile dell'assistente: voce/timbro e avatar, trasferibili con il profilo.
+- Descrizioni generiche e facoltative del profilo (incluse preferenze di voce e avatar) utilizzabili da altre applicazioni; sintesi vocale, rendering dell'avatar e interazione spettano a tali applicazioni.
 - Formato indipendente da modelli e fornitori, per usare modelli locali, gratuiti o commerciali.
 - Sincronizzazione tra dispositivi con cifratura end-to-end, associazione esplicita dei dispositivi e chiavi private che restano sotto il controllo dell'utente.
 - Storico firmato delle revisioni, ispirato alle catene di hash e capace di conservare i conflitti, senza blockchain pubblica né registro pubblico di dati personali.
@@ -21,13 +21,17 @@ AI Memory Vault è un progetto open source per custodire, sotto il controllo del
 - Importazione guidata e locale da formati di esportazione di assistenti diversi.
 - Formato aperto e interfacce documentate, così che la comunità possa contribuire.
 
+## Ambito: un archivio di memoria, non un'app assistente
+
+AI Memory Vault è un **componente autonomo di memoria, indipendente da modelli e marchi**. Conserva ed esporta ricordi approvati dall'utente e metadati facoltativi delle preferenze; non realizza un assistente mobile, un avatar sullo schermo, sintesi o clonazione vocale né una chat connessa a un LLM. Queste funzioni appartengono ad applicazioni client separate, che potranno integrare il vault soltanto tramite interfacce esplicite e consenso. Non è richiesto alcun assistente o personaggio specifico.
+
 ## Privacy e identità dell'assistente
 
 Nel profilo vocale del prototipo, timbro e accento/pronuncia sono campi distinti.
 
 La memoria e il profilo rimangono sul dispositivo per impostazione predefinita. La sincronizzazione futura dovrà trasportare solo pacchetti cifrati; il servizio potrà comunque osservare metadati come dimensioni e tempi. Quando si usa un modello remoto, la richiesta e i dati approvati vengono trasmessi in chiaro al fornitore per l'elaborazione: la schermata dovrà mostrare il testo esatto e chiedere un consenso valido per quella sola richiesta.
 
-Per voce intendiamo la voce con cui l'assistente parla e la sua continuità tra dispositivi: timbro, profilo vocale o modello vocale privato, lingua, ritmo e identificativo del motore. Un eventuale modello vocale e l'avatar sono asset privati separati, facoltativi e cifrati; la loro generazione o condivisione richiede un consenso specifico. Un'etichetta o una descrizione da sola non garantisce che motori diversi riproducano la stessa voce.
+Le impostazioni vocali facoltative sono preferenze descrittive per un client esterno: timbro, accento e pronuncia, lingua, ritmo e identificativi del motore. Il prototipo locale conserva timbro e accento in campi distinti. Non crea, riproduce né gestisce modelli vocali o avatar. Un eventuale scambio futuro di asset multimediali privati con client separati richiederebbe consenso specifico, revisione di sicurezza e un progetto di archiviazione dedicato. Le sole descrizioni non riproducono una voce né visualizzano un avatar.
 
 ## Prototipo locale
 
@@ -35,7 +39,7 @@ Il prototipo blocca automaticamente il vault dopo dieci minuti senza interazioni
 
 Con il vault sbloccato puoi cambiare passphrase. L'app ricifra l'involucro locale della chiave privata, lasciando invariati la chiave dati e il payload cifrato dei ricordi. I backup esportati in precedenza continuano a richiedere la passphrase originale: esporta un nuovo backup dopo il cambio. Questa operazione non ruota le chiavi dei dispositivi.
 
-La cartella [`app/`](app/) contiene un prototipo web locale per creare, cercare, modificare, approvare, archiviare ed eliminare ricordi testuali, salvare preferenze di personalità e voce dell'assistente, generare un'anteprima locale ed esportare/importare un backup cifrato. Non supporta ancora note vocali o allegati audio. L'anteprima non contatta modelli o servizi esterni. Il formato non dipende da un modello. Non sono ancora implementati la sincronizzazione automatica, gli adattatori ai modelli, la portabilità reale di avatar/modelli vocali o l'importazione multi-formato.
+La cartella [`app/`](app/) contiene un prototipo web locale per creare, cercare, modificare, approvare, archiviare ed eliminare ricordi testuali, salvare preferenze di personalità e voce dell'assistente, generare un'anteprima locale ed esportare/importare un backup cifrato. Non supporta ancora note vocali o allegati audio. L'anteprima non contatta modelli o servizi esterni. Il formato non dipende da un modello. Non sono ancora implementati la sincronizzazione automatica, gli adattatori ai modelli, la portabilità di asset multimediali o l'importazione multi-formato. L'avatar animato, la riproduzione vocale e l'interfaccia mobile dell'assistente sono fuori dall'ambito di questo repository.
 
 Dalla cartella principale del repository, avvia un server statico. Su Windows:
 
@@ -53,7 +57,7 @@ L'opzione `--bind 127.0.0.1` limita il server di sviluppo al dispositivo in uso 
 
 ## Documentazione
 
-L'ingresso runtime riutilizzabile è [`src/index.js`](src/index.js); [`src/index.ts`](src/index.ts) aggiunge i contratti di sync e il modulo vocale facoltativo con consenso separato. Il nucleo offre una sessione di vault cifrata sopra un'interfaccia di archivio che riceve e salva solo byte dell'involucro cifrato. Creazione atomica e aggiornamenti compare-and-swap impediscono a due sessioni locali di sovrascriversi in silenzio. L'adattatore IndexedDB riutilizzabile è esportato dal nucleo e mantiene la compatibilità con gli involucri salvati dal prototipo precedente. Le operazioni sui ricordi e il recupero locale non dipendono da un modello. Il prototipo browser usa lo stesso ingresso runtime e non richiede installazioni di pacchetti.
+L'ingresso runtime riutilizzabile è [`src/index.js`](src/index.js); [`src/index.ts`](src/index.ts) aggiunge i contratti di sync e un contratto facoltativo di consenso relativo alla voce (non un motore di sintesi). Il nucleo offre una sessione di vault cifrata sopra un'interfaccia di archivio che riceve e salva solo byte dell'involucro cifrato. Creazione atomica e aggiornamenti compare-and-swap impediscono a due sessioni locali di sovrascriversi in silenzio. L'adattatore IndexedDB riutilizzabile è esportato dal nucleo e mantiene la compatibilità con gli involucri salvati dal prototipo precedente. Le operazioni sui ricordi e il recupero locale non dipendono da un modello. Il prototipo browser usa lo stesso ingresso runtime e non richiede installazioni di pacchetti.
 
 - [Visione](docs/vision.it.md)
 - [Uso del nucleo locale del vault](docs/core-api.it.md)
@@ -61,7 +65,7 @@ L'ingresso runtime riutilizzabile è [`src/index.js`](src/index.js); [`src/index
 - [Modello delle minacce](docs/threat-model.it.md)
 - [Confine tra vault, modelli e ricerca](docs/provider-boundary.it.md)
 - [Progetto di sincronizzazione cifrata](docs/sync-protocol.it.md)
-- [Continuità dell'identità vocale](docs/voice-module.it.md)
+- [Metadati vocali facoltativi e confine del consenso](docs/voice-module.it.md)
 - [Roadmap](docs/roadmap.it.md)
 - [Schema dati](schemas/vault-snapshot-v1.schema.json)
 - [Validatore condiviso dello snapshot](src/core/snapshot-validation.js)

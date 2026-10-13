@@ -2,7 +2,7 @@
 
 [English](roadmap.md) | [Italiano](roadmap.it.md)
 
-Questa roadmap segue lo sviluppo di un assistente personale di IA portatile. Le tappe di sicurezza richiedono revisione; il prototipo attuale serve solo con dati sintetici.
+Questa roadmap segue lo sviluppo di un archivio di memoria portatile e indipendente dagli assistenti. Le tappe di sicurezza richiedono revisione; il prototipo attuale serve solo con dati sintetici.
 
 ## Stato attuale
 
@@ -14,15 +14,15 @@ Questa roadmap segue lo sviluppo di un assistente personale di IA portatile. Le 
 - [x] Bozza bilingue del modello delle minacce e del progetto di sync multi-dispositivo.
 - [ ] Revisione indipendente della crittografia browser; fino ad allora solo dati sintetici.
 - [ ] Supporto a note vocali personali come asset audio cifrati separati dai campioni usati per la voce dell'assistente.
-- [ ] Schema completo dell'identità portatile: nome, persona, identità vocale, avatar e riferimenti protetti agli asset.
+- [ ] Stabilizzare metadati di profilo facoltativi e generici, senza vincolare il formato della memoria a un assistente o un'app mobile specifici.
 - [ ] Associazione di chiavi per dispositivo, sync cifrata, recupero, conflitti, revoca e protezione dal rollback.
 - [ ] Adattatori ai modelli con autorizzazione esatta per ogni richiesta remota; il prototipo attuale non invia richieste ad alcun modello.
 - [ ] Importatore locale, revisionabile e multi-formato delle conversazioni.
-- [ ] Archivio cifrato degli asset facoltativi per modelli vocali e avatar, con consenso e controlli di portabilità separati.
+- [ ] Specificare riferimenti facoltativi ad asset multimediali esterni e relativi confini di consenso/sicurezza; modelli vocali e avatar appartengono a client separati.
 
 ## Tappe
 
-### 1. Memoria e identità portatile
+### 1. Memoria portatile e metadati facoltativi di profilo
 
 - Versionare record per memoria categorizzata, provenienza, scadenza, sensibilità e revisione dell'utente.
 - Aggiungere le note vocali come ricordi dell'utente con consenso, cifratura locale e provenienza esplicita.
@@ -47,8 +47,8 @@ Questa roadmap segue lo sviluppo di un assistente personale di IA portatile. Le 
 - Permettere ai modelli locali di usare il contesto selezionato senza rete.
 - Mostrare query, destinatario e contesto esatti prima di ogni chiamata esterna; niente consenso permanente.
 
-### 5. Identità vocale e avatar
+### 5. Profilo client facoltativo e confini multimediali esterni
 
-- Conservare preferenze descrittive portabili e identificativi stabili di motore/profilo.
-- Trattare modelli vocali e file avatar come asset cifrati facoltativi, separati dai ricordi.
-- Richiedere diritti, consenso, regole di conservazione, revoca e cancellazione specifici.
+- Conservare preferenze descrittive e identificativi generici senza implementare riproduzione o rendering.
+- Mantenere motori vocali, avatar e interfacce client fuori dal vault; prevedere soltanto contratti di integrazione facoltativi.
+- Richiedere diritti, consenso, conservazione, revoca e cancellazione specifici per eventuali integrazioni future.

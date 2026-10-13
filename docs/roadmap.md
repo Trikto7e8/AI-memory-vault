@@ -2,7 +2,7 @@
 
 [English](roadmap.md) | [Italiano](roadmap.it.md)
 
-This roadmap tracks work toward a portable personal AI assistant. Security-sensitive milestones require review; the current prototype is for synthetic data only.
+This roadmap tracks development of a portable, assistant-independent memory vault. Security-sensitive milestones require review; the current prototype is for synthetic data only.
 
 ## Current status
 
@@ -14,15 +14,15 @@ This roadmap tracks work toward a portable personal AI assistant. Security-sensi
 - [x] Initial bilingual threat model and multi-device sync design.
 - [ ] Independent review of browser cryptography; use synthetic data until reviewed.
 - [ ] Support personal voice notes as separate encrypted audio assets, distinct from samples used for the assistant's voice.
-- [ ] Complete portable assistant identity schema: name, persona, voice identity, avatar, and protected asset references.
+- [ ] Stabilize optional, generic client-profile metadata without coupling the memory format to a particular assistant or mobile application.
 - [ ] Device-specific key enrollment, encrypted sync, recovery, conflict resolution, revocation, and rollback protection.
 - [ ] Model adapters with exact authorization for every remote request; the current prototype sends requests to no model.
 - [ ] Local, reviewable, multi-format conversation importer.
-- [ ] Encrypted asset store for optional voice models and avatars, with separate consent and portability controls.
+- [ ] Specify optional external media-asset references and their consent/security boundaries; actual voice models and avatar implementation belong to separate clients.
 
 ## Milestones
 
-### 1. Portable assistant identity and memory
+### 1. Portable memory and optional profile metadata
 
 - Version records for categorized memory, provenance, expiry, sensitivity, and user review.
 - Add personal voice notes as user-owned memories with consent, local encryption, and explicit provenance.
@@ -47,8 +47,8 @@ This roadmap tracks work toward a portable personal AI assistant. Security-sensi
 - Let local models use selected context without network access.
 - Preview exact query, destination, and context before each external call; no standing consent.
 
-### 5. Voice and avatar identity
+### 5. Optional client profile and external media boundaries
 
-- Store portable descriptive settings and stable engine/profile identifiers.
-- Treat voice models and avatar files as optional encrypted assets, separate from memories.
-- Require specific rights, consent, retention, revocation, and deletion policies.
+- Preserve generic descriptive preferences and stable reference identifiers without implementing media playback or rendering.
+- Keep voice engines, avatars, and client user interfaces outside the vault; expose optional integration contracts only.
+- Require specific rights, consent, retention, revocation, and deletion policies for any future integration.

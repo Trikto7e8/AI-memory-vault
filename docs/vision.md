@@ -8,17 +8,21 @@ AI Memory Vault is an open project for keeping, under the user's control, AI pre
 
 The central proof is simple: I save a project and my preferences, start a fresh session on another device and another model, retrieve relevant context, and can inspect, correct, or delete what was recalled.
 
+## Independent scope
+
+This project is a reusable vault, not a specific assistant product. Assistant applications, including mobile clients, own their interfaces, avatar animation, speech synthesis, and interactions with models. The vault stores approved records and optional descriptive preferences, without depending on or naming any particular assistant or application. Media generation and playback are outside its scope.
+
 ## User-controlled memory and personality
 
 The user decides what becomes a memory, sees its source and date, and can correct, expire, or delete it. Temporary context does not automatically become permanent memory. Personality settings—tone, style, boundaries, language, and rules—can be changed independently from factual memories.
 
 Categories help organize information without creating hidden profiles: projects, ideas, preferences, people and relationships the user chooses to keep, reference knowledge, and temporary continuity. Suggestions extracted from a conversation remain pending review until the user approves them.
 
-## Persistent assistant identity
+## Optional client profile metadata
 
-The profile should carry a coherent identity: name, description, personality, style, voice/timbre, avatar, and identifiers compatible with installed engines. A voice description helps but cannot reproduce the same voice by itself. Preserving timbre across devices may require a private encrypted voice model, installed locally or synchronized as an encrypted asset when the user authorizes it.
+The optional profile may store descriptive fields such as name, personality, style, voice/timbre preference, and avatar description or references. These are data, not a promise to reproduce an assistant's identity: implementing a voice engine or drawing an avatar remains the responsibility of a separate client.
 
-Personal voice notes are memories belonging to the user; timbre settings and a voice model describe the voice the assistant speaks with. They are distinct kinds of content. The current prototype does not store voice notes or voice models. Any future cloned voice model and avatar images are assets separate from memory records, optional, and governed by specific consent, rights, encryption, sync, and deletion. No asset is uploaded or used for training without explicit authorization.
+Personal voice notes are memories belonging to the user; timbre settings and a voice model describe the voice the assistant speaks with. They are distinct kinds of content. The current prototype does not store voice notes or voice models. Any future private media-asset integration belongs behind separately reviewed consent, rights, encryption, synchronization, and deletion boundaries. No asset is uploaded or used for training by this prototype.
 
 ## Model independence and portability
 
@@ -37,7 +41,7 @@ Memory is searched on-device. For web lookups, the client previews the exact que
 - A portable profile for the assistant's personality and identity.
 - Transferable encrypted backup and multi-device encrypted sync after review.
 - Swappable adapters for local or remote models with explicit approval.
-- Private, optional voice/avatar assets kept separate from memory.
+- Optional, generic voice/avatar descriptions or external references; actual media processing stays with separate clients.
 - Local, reviewable import from different formats.
 
 The repository contains an experimental prototype; it has not been audited and must not be used with real personal data.
