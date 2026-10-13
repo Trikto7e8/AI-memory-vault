@@ -8,17 +8,21 @@ AI Memory Vault è un progetto aperto per custodire, sotto il controllo dell’u
 
 La prova centrale è semplice: salvo un progetto e le mie preferenze, apro una nuova sessione su un altro dispositivo e con un altro modello, ritrovo il contesto pertinente e posso verificare, correggere o cancellare ciò che è stato recuperato.
 
+## Ambito indipendente
+
+Questo progetto è un archivio riutilizzabile, non un prodotto legato a un assistente specifico. Le applicazioni assistente, compresi i client mobili, gestiscono interfaccia, animazione dell'avatar, sintesi vocale e interazione con i modelli. Il vault conserva record approvati e preferenze descrittive facoltative, senza dipendere da alcun assistente o applicazione particolare. Generazione e riproduzione di contenuti multimediali sono fuori dal suo ambito.
+
 ## Memoria e personalità sotto il controllo dell'utente
 
 L'utente decide cosa diventa un ricordo, ne vede provenienza e data, e può correggere, far scadere o cancellare ogni elemento. Il contesto temporaneo non diventa automaticamente memoria permanente. Le impostazioni della personalità — tono, stile, limiti, lingua e regole — si modificano indipendentemente dai ricordi fattuali.
 
 Le categorie servono a organizzare, non a costruire profili nascosti: progetti, idee, preferenze, persone e relazioni scelte dall'utente, conoscenze di riferimento e continuità temporanea. Ogni suggerimento estratto da una conversazione resta in revisione finché l'utente non lo approva.
 
-## Identità persistente dell'assistente
+## Metadati facoltativi del profilo client
 
-Il profilo deve poter trasportare un'identità coerente: nome, descrizione, personalità, stile, voce/timbro, avatar e identificativi compatibili con i motori installati. Una descrizione vocale aiuta, ma non basta a riprodurre la stessa voce. Per mantenere il timbro tra dispositivi può servire un modello vocale privato cifrato, installato localmente o sincronizzato come asset cifrato quando l'utente lo autorizza.
+Il profilo facoltativo può conservare campi descrittivi come nome, personalità, stile, preferenza vocale/timbro e descrizione o riferimenti dell'avatar. Sono dati, non una promessa di riprodurre l'identità di un assistente: implementare un motore vocale o disegnare un avatar spetta a un client separato.
 
-Le note vocali personali sono ricordi dell’utente; le impostazioni di timbro e il modello vocale descrivono invece la voce con cui parla l’assistente. Sono contenuti distinti. Il prototipo attuale non archivia note vocali né modelli vocali. Un eventuale modello vocale/clonato e le immagini/avatar sono asset separati dai record di memoria, facoltativi e soggetti a consenso, diritti, cifratura, sincronizzazione e cancellazione specifici. Nessun asset viene caricato o usato per addestramento senza autorizzazione esplicita.
+Le note vocali personali sono ricordi dell’utente; le impostazioni di timbro e il modello vocale descrivono invece la voce con cui parla l’assistente. Sono contenuti distinti. Il prototipo attuale non archivia note vocali né modelli vocali. Eventuali integrazioni future di asset multimediali privati richiedono confini dedicati e revisionati per consenso, diritti, cifratura, sincronizzazione e cancellazione. Il prototipo non carica né usa asset per l'addestramento.
 
 ## Indipendenza dai modelli e portabilità
 
@@ -37,7 +41,7 @@ La memoria viene cercata sul dispositivo. Per interrogare il web, il client most
 - Un profilo portatile di personalità e identità dell'assistente.
 - Backup cifrato trasferibile e sync cifrata multi-dispositivo dopo revisione.
 - Adattatori intercambiabili per modelli locali o remoti con approvazione esplicita.
-- Asset vocali/avatar privati, facoltativi e distinti dalla memoria.
+- Descrizioni o riferimenti esterni generici e facoltativi per voce/avatar; l'elaborazione multimediale resta a client separati.
 - Importazione locale e revisionabile da diversi formati.
 
 Il repository contiene un prototipo sperimentale; non è stato sottoposto ad audit e non va usato con dati personali reali.
