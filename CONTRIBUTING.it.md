@@ -13,3 +13,7 @@ Grazie per voler contribuire ad AI Memory Vault. Il progetto ha un prototipo spe
 - Preferisci modifiche piccole, documentate e verificabili.
 
 Il progetto usa Apache License 2.0. Consulta [visione](docs/vision.it.md), [architettura](docs/architecture.it.md), [modello delle minacce](docs/threat-model.it.md) e [roadmap](docs/roadmap.it.md).
+
+## Trova un contributo
+
+Parti dal [piano multipiattaforma](docs/platforms.it.md) e dalle issue aperte con etichetta help wanted. Cerchiamo contributi per Android, iOS/iPadOS, Windows, macOS, Linux, accessibilit? browser, import/export e revisione di sicurezza. Commenta nella issue pertinente indicando attivit? proposta e ambiente di prova; non servono recapiti personali. Mantieni allineate le guide inglesi e italiane e usa solo dati sintetici. Il supporto di una piattaforma richiede risultati riproducibili. Memory Vault deve restare indipendente da qualsiasi avatar, prodotto di assistenza e modello.

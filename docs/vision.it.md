@@ -45,3 +45,7 @@ La memoria viene cercata sul dispositivo. Per interrogare il web, il client most
 - Importazione locale e revisionabile da diversi formati.
 
 Il repository contiene un prototipo sperimentale; non è stato sottoposto ad audit e non va usato con dati personali reali.
+
+## Sviluppo multipiattaforma
+
+[Piattaforme, evidenze e criteri di verifica](platforms.it.md). La memoria resta indipendente da avatar, prodotti di assistenza e modelli.

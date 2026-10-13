@@ -13,3 +13,7 @@ Thank you for contributing to AI Memory Vault. The project has an experimental p
 - Prefer small, documented, reviewable changes.
 
 The project uses the Apache License 2.0. See the [vision](docs/vision.md), [architecture](docs/architecture.md), [threat model](docs/threat-model.md), and [roadmap](docs/roadmap.md).
+
+## Find a contribution
+
+Start with the [platform plan](docs/platforms.md) and open help-wanted issues. Android, iOS/iPadOS, Windows, macOS, Linux, browser accessibility, import/export and security review all need contributors. Comment on the matching issue with your proposed scope and test environment; no personal contact information is required. Keep English and Italian documentation aligned. Use synthetic fixtures only. Platform support requires reproducible results. Memory Vault must stay independent of every avatar, assistant product and model.

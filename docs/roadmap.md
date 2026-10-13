@@ -52,3 +52,7 @@ This roadmap tracks development of a portable, assistant-independent memory vaul
 - Preserve generic descriptive preferences and stable reference identifiers without implementing media playback or rendering.
 - Keep voice engines, avatars, and client user interfaces outside the vault; expose optional integration contracts only.
 - Require specific rights, consent, retention, revocation, and deletion policies for any future integration.
+
+## Cross-platform development
+
+[Platform targets, evidence and acceptance checklist](platforms.md). Memory remains independent of avatars, assistant products and models.

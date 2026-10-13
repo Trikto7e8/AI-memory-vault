@@ -45,3 +45,7 @@ Memory is searched on-device. For web lookups, the client previews the exact que
 - Local, reviewable import from different formats.
 
 The repository contains an experimental prototype; it has not been audited and must not be used with real personal data.
+
+## Cross-platform development
+
+[Platform targets, evidence and acceptance checklist](platforms.md). Memory remains independent of avatars, assistant products and models.

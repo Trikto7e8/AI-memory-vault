@@ -8,6 +8,14 @@ AI Memory Vault è un progetto open source per custodire, sotto il controllo del
 
 > Il repository include un prototipo locale sperimentale, non revisionato né sottoposto ad audit. Usa solo dati sintetici; non inserire dati personali reali.
 
+## Aiutaci a sviluppare Memory Vault su pi? piattaforme
+
+AI Memory Vault ? un progetto di memoria indipendente: non richiede avatar, marchi di assistenti, modelli o fornitori specifici. L'obiettivo ? una memoria controllata dall'utente su cellulari e tablet Android, iPhone/iPad, PC Windows, macOS, Linux e browser compatibili.
+
+**Sono obiettivi di sviluppo, non piattaforme dichiarate gi? supportate.** Oggi il repository contiene un prototipo browser locale e un nucleo di memoria riutilizzabile. App native, pacchetti per gli store, sincronizzazione cifrata automatica e integrazioni pronte per la produzione restano da realizzare.
+
+Cerchiamo sviluppatori, tester su dispositivi reali, contributi per accessibilit? e traduzioni, revisori di sicurezza. Parti dal [piano multipiattaforma](docs/platforms.it.md), dalle [richieste di aiuto](https://github.com/Trikto7e8/AI-memory-vault/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) o dalle [Discussions](https://github.com/Trikto7e8/AI-memory-vault/discussions). Anche una prova riproducibile su un solo dispositivo ? un contributo utile.
+
 ## Cosa vogliamo costruire
 
 - Memoria personale categorizzata e curata dall’utente, con preferenze IA e note vocali personali.

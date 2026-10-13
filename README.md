@@ -8,6 +8,14 @@ AI Memory Vault is an open-source project for keeping, under the user's control,
 
 > The repository includes an experimental local prototype that has not been reviewed or audited. Use synthetic data only; do not enter real personal data.
 
+## Help build Memory Vault across platforms
+
+AI Memory Vault is an independent memory project: no avatar, assistant brand, model, or provider is required. The goal is user-controlled memory across Android phones and tablets, iPhone/iPad, Windows PCs, macOS, Linux, and compatible browsers.
+
+**These are development targets, not a claim of tested support.** Today this repository contains a local browser prototype and reusable memory core. Native apps, store packages, automatic encrypted sync, and production-ready integrations remain work to do.
+
+We welcome developers, device testers, accessibility contributors, translators, and security reviewers. Start with the [platform plan](docs/platforms.md), [help-wanted issues](https://github.com/Trikto7e8/AI-memory-vault/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22), or [Discussions](https://github.com/Trikto7e8/AI-memory-vault/discussions). A reproducible test report on one device is a useful contribution.
+
 ## What we want to build
 
 - User-curated, categorized personal memory, including AI preferences and personal voice notes.

@@ -52,3 +52,7 @@ Questa roadmap segue lo sviluppo di un archivio di memoria portatile e indipende
 - Conservare preferenze descrittive e identificativi generici senza implementare riproduzione o rendering.
 - Mantenere motori vocali, avatar e interfacce client fuori dal vault; prevedere soltanto contratti di integrazione facoltativi.
 - Richiedere diritti, consenso, conservazione, revoca e cancellazione specifici per eventuali integrazioni future.
+
+## Sviluppo multipiattaforma
+
+[Piattaforme, evidenze e criteri di verifica](platforms.it.md). La memoria resta indipendente da avatar, prodotti di assistenza e modelli.
