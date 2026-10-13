@@ -56,3 +56,7 @@ Quando l'utente blocca il prototipo, i valori decifrati vengono rimossi dalla pa
 ## Stato delle verifiche
 
 Il prototipo usa Web Crypto per un flusso locale di backup, ma non ha revisione indipendente. Sync multi-dispositivo, gate con interfaccia di consenso remoto, recupero, revoca e importatore conversazioni non sono operativi. I controlli documentati per queste funzioni sono requisiti futuri, non protezioni già fornite.
+
+## Preferenze e asset futuri del profilo
+
+Contesto, tono vocale, personalità e preferenze per immagini dell’avatar o animazioni possono contenere dati personali. Trattarli come dati del profilo sotto il controllo dell’utente. Gli asset futuri richiedono regole distinte di cifratura, provenienza, consenso, trasferimento ed eliminazione; non diventano pubblici né vengono inviati automaticamente a un modello. Il prototipo non archivia immagini dell’avatar o animazioni come asset.

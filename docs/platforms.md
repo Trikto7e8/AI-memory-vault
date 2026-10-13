@@ -43,3 +43,9 @@ Cross-device backup tests are manual portability tests, not automatic sync. Nati
 5. Specify encrypted personal audio notes and optional preference metadata separately from media engines.
 
 The existing prototype remains experimental and unaudited. A platform milestone needs published evidence, not only a successful build. See [roadmap](roadmap.md) and [contributing](../CONTRIBUTING.md).
+
+## Continuity across devices
+
+The portable profile for the user's usual AI assistant, LLM, or agent collects preferences for context, vocal tone, personality, behavior, instructions, and boundaries. It may include optional generic voice and avatar descriptions; future avatar images and animation preferences need an extension and compatibility design. Storing a preference does not implement speech synthesis, rendering, or animation: those functions belong to external clients. Memory remains independent of specific models, providers, and avatars.
+
+The goal is to accompany the user through future encrypted synchronization across authorized devices. Today transfer uses manual encrypted backups. Cross-platform tests must verify preservation of memories and currently supported profile fields without claiming future images or animations are operational.

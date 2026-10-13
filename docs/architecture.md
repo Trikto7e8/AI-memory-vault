@@ -7,7 +7,7 @@ These notes set a direction to implement and review; they are not a security cer
 ## Separate but portable concerns
 
 1. **Personal memory:** categorized text memories and, in the future, personal voice notes with provenance, dates, sensitivity, and expiry.
-2. **Profile for the assistant the user usually uses:** AI preferences and settings for its name, personality, behavior, instructions, boundaries, voice/timbre, and avatar.
+2. **Portable profile for the usual AI assistant, LLM, or agent:** AI preferences for context, vocal tone, name, personality, behavior, instructions, boundaries, and optional voice/avatar descriptions. Future avatar images and animation preferences require a versioned extension.
 3. **Vault and keys:** local encryption, unlock, backup, recovery, device enrollment, and synchronization.
 4. **Adapters:** interfaces to different AI models, voice engines, search, and mobile clients.
 
@@ -17,7 +17,7 @@ Every concern must work without depending on one assistant or model. The core pa
 
 The assistant profile travels with memory and describes its personality, behavior, and identity. Personal voice notes are the user's memories; they must not be confused with the settings for the voice the assistant speaks with. For that voice, store descriptive preferences (timbre, accent, pace) and stable identifiers that a compatible engine can reuse. Preserving the same timbre across engines or devices may require treating a voice model as a separate, private, encrypted asset that transfers only with user consent. Descriptions and IDs alone cannot guarantee identical reproduction.
 
-The same principle applies to the assistant's name, description, and avatar assets. Images, voice models, and other assets are not text memories and must not be put in issues, examples, or public commits. Cloning is optional and requires rights and specific consent from the represented person.
+The same principle applies to the assistant's name, description, and future avatar images or animation assets. Images, voice models, and other assets are not text memories and must not be put in issues, examples, or public commits. Cloning is optional and requires rights and specific consent from the represented person.
 
 ## Public/private keys and passphrases
 

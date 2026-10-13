@@ -65,3 +65,7 @@ Il contratto propone RSA-OAEP con chiavi da 3072 bit per avvolgere la chiave, EC
 - Il backup `.mvault` del prototipo riusa la coppia di chiavi protetta da passphrase; non applica il modello multi-dispositivo sopra descritto.
 - Il prototipo non è sottoposto ad audit e non è adatto a dati personali reali.
 - Non inserire archivi di conversazioni, chiavi o audio personali in GitHub. Vedere `.gitignore` e le istruzioni per contribuire.
+
+## Continuità di memoria e profilo
+
+La futura sincronizzazione deve preservare ricordi approvati e preferenze dell’assistente IA, LLM o agente abitualmente usato, senza dipendere dal modello. Le estensioni future per immagini dell’avatar e animazioni richiedono versionamento e gestione esplicita dei client che non le supportano; non aggiungere campi o asset non validati allo snapshot attuale. La sincronizzazione automatica resta da implementare.

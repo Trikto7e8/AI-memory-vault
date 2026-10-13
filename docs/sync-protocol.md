@@ -65,3 +65,7 @@ The contract currently names RSA-OAEP with 3072-bit keys for key wrapping, ECDSA
 - The prototype's `.mvault` backup reuses its passphrase-protected key pair; it does not implement the multi-device model above.
 - The prototype is unaudited and is not suitable for real personal data.
 - Do not put conversation archives, keys, or personal audio in GitHub. See `.gitignore` and the contribution instructions.
+
+## Memory and profile continuity
+
+Future synchronization must preserve approved memories and preferences for the user's usual AI assistant, LLM, or agent independently of the model. Future avatar-image and animation extensions require versioning and explicit handling of clients that do not support them; do not add unvalidated fields or assets to the current snapshot. Automatic synchronization remains unimplemented.

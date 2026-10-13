@@ -56,3 +56,7 @@ When the user locks the prototype, it clears decrypted values from the rendered 
 ## Verification status
 
 The prototype uses Web Crypto for a local backup flow, but has no independent review. Multi-device sync, a remote-consent UI gate, recovery, revocation, and conversation importer are not operational. Controls documented for these features are future requirements, not protections currently provided.
+
+## Profile preferences and future assets
+
+Context, vocal tone, personality, and avatar-image or animation preferences may contain personal data. Treat them as user-controlled profile data. Future assets require separate encryption, provenance, consent, transfer, and deletion rules; they do not become public or get sent automatically to a model. The prototype does not store avatar images or animations as assets.

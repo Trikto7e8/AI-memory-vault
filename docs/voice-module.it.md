@@ -25,3 +25,9 @@ Nel profilo portatile, timbro e preferenze per accento e pronuncia sono memorizz
 - Consentire revoca e cancellazione dell'asset, indicando chiaramente che non si possono richiamare copie già scaricate o già ricevute da un servizio.
 
 Il contratto TypeScript facoltativo per il consenso è in `src/voice/`. Non implementa un motore né il rendering di avatar. Il gate richiede un consenso monouso, a breve scadenza, legato al motore, al campione selezionato, alla lingua, alla descrizione vocale e al luogo di elaborazione. Ogni tentativo di usare il consenso lo consuma, anche se la destinazione non corrisponde; per riprovare serve una nuova conferma esplicita. Nessun motore è collegato.
+
+## Profilo portatile e compatibilità
+
+Il profilo portatile dell’assistente IA, LLM o agente abitualmente usato raccoglie preferenze di contesto, tono vocale, personalità, comportamento, istruzioni e limiti. Può includere descrizioni generiche e facoltative relative alla voce e all’avatar; immagini dell’avatar e preferenze di animazione future richiedono un progetto di estensione e compatibilità. Conservare una preferenza non significa implementare sintesi vocale, rendering o animazioni: queste funzioni spettano ai client esterni. La memoria resta indipendente da modelli, fornitori e avatar specifici.
+
+Lo schema e il runtime attuali restano invariati. Le future immagini dell’avatar e preferenze di animazione non sono nuove funzioni già disponibili: occorrono schema versionato, validazione, import/export e client compatibili. Un cambio di modello conserva i dati del profilo; non garantisce che ogni modello riproduca lo stesso comportamento o la stessa voce.

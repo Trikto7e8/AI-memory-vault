@@ -20,6 +20,15 @@ Questa roadmap segue lo sviluppo di un archivio di memoria portatile e indipende
 - [ ] Importatore locale, revisionabile e multi-formato delle conversazioni.
 - [ ] Specificare riferimenti facoltativi ad asset multimediali esterni e relativi confini di consenso/sicurezza; modelli vocali e avatar appartengono a client separati.
 
+## Continuità del profilo dell’assistente
+
+Il profilo portatile dell’assistente IA, LLM o agente abitualmente usato raccoglie preferenze di contesto, tono vocale, personalità, comportamento, istruzioni e limiti. Può includere descrizioni generiche e facoltative relative alla voce e all’avatar; immagini dell’avatar e preferenze di animazione future richiedono un progetto di estensione e compatibilità. Conservare una preferenza non significa implementare sintesi vocale, rendering o animazioni: queste funzioni spettano ai client esterni. La memoria resta indipendente da modelli, fornitori e avatar specifici.
+
+- [ ] Specificare contesto e tono vocale insieme alle preferenze di personalità.
+- [ ] Progettare metadati versionati per future immagini dell’avatar e animazioni, distinguendoli dagli asset multimediali.
+- [ ] Verificare che cambio modello, esportazione e importazione conservino i dati approvati e segnalino preferenze non supportate dal client.
+- [ ] Mantenere la sincronizzazione cifrata automatica indicata come obiettivo finché non sarà implementata e verificata.
+
 ## Tappe
 
 ### 1. Memoria portatile e metadati facoltativi di profilo

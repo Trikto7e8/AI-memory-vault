@@ -80,3 +80,9 @@ passphraseInput.value = "";
 - L'API del contesto può creare anteprime locali e grant vincolati a un solo adattatore, con scadenza di cinque minuti e consumo singolo. Il prototipo non è collegato ad alcun adattatore di modelli.
 - Il blocco rimuove i riferimenti in chiaro della sessione, ma JavaScript non può garantire la cancellazione della memoria del processo.
 - Non usare dati personali reali finché crittografia e client non saranno revisionati in modo indipendente.
+
+## Profilo portatile e compatibilità
+
+Il profilo portatile dell’assistente IA, LLM o agente abitualmente usato raccoglie preferenze di contesto, tono vocale, personalità, comportamento, istruzioni e limiti. Può includere descrizioni generiche e facoltative relative alla voce e all’avatar; immagini dell’avatar e preferenze di animazione future richiedono un progetto di estensione e compatibilità. Conservare una preferenza non significa implementare sintesi vocale, rendering o animazioni: queste funzioni spettano ai client esterni. La memoria resta indipendente da modelli, fornitori e avatar specifici.
+
+Lo schema e il runtime attuali restano invariati. Le future immagini dell’avatar e preferenze di animazione non sono nuove funzioni già disponibili: occorrono schema versionato, validazione, import/export e client compatibili. Un cambio di modello conserva i dati del profilo; non garantisce che ogni modello riproduca lo stesso comportamento o la stessa voce.

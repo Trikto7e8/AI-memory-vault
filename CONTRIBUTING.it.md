@@ -17,3 +17,7 @@ Il progetto usa Apache License 2.0. Consulta [visione](docs/vision.it.md), [arch
 ## Trova un contributo
 
 Parti dal [piano multipiattaforma](docs/platforms.it.md) e dalle issue aperte con etichetta help wanted. Cerchiamo contributi per Android, iOS/iPadOS, Windows, macOS, Linux, accessibilità browser, import/export e revisione di sicurezza. Commenta nella issue pertinente indicando attività proposta e ambiente di prova; non servono recapiti personali. Mantieni allineate le guide inglesi e italiane e usa solo dati sintetici. Il supporto di una piattaforma richiede risultati riproducibili. Memory Vault deve restare indipendente da qualsiasi avatar, prodotto di assistenza e modello.
+
+## Coerenza delle preferenze portatili
+
+Le proposte devono conservare ricordi e preferenze dell’assistente IA, LLM o agente abitualmente usato: contesto, tono vocale, personalità, comportamento, istruzioni e limiti. Preferenze future per immagini dell’avatar e animazioni richiedono un progetto versionato e prove di compatibilità; rendering e sintesi restano ai client. Distinguere sempre dati descrittivi, asset e funzioni operative.

@@ -4,7 +4,7 @@
 
 ## Purpose
 
-AI Memory Vault is an open project for keeping, under the user's control, AI preferences, personal memories, and voice notes, together with voice, personality, and behavior settings for the AI assistant they usually use. The memory is designed to work locally and travel with the user across devices, independently of the selected model. Users should be able to switch LLM/AI models without losing their stored memories or the sense of familiarity and rapport built with their assistant. Future synchronization is designed to transfer encrypted data only, so the storage service cannot read its contents; it is not implemented yet.
+AI Memory Vault is an open-source project for keeping AI preferences and personal memories under the user's control, together with voice, personality, and behavior settings for the AI assistant they usually use. The memory is designed to work locally and accompany users across their devices, independently of the selected model. Users should be able to switch AI/LLM models without losing the memories in their vault or the familiarity they have built with their assistant. Future synchronization is designed to transfer encrypted data only, so the storage service cannot read its contents; automatic synchronization is not implemented yet.
 
 The central proof is simple: I save a project and my preferences, start a fresh session on another device and another model, retrieve relevant context, and can inspect, correct, or delete what was recalled.
 
@@ -20,7 +20,7 @@ Categories help organize information without creating hidden profiles: projects,
 
 ## Optional client profile metadata
 
-The optional profile may store descriptive fields such as name, personality, style, voice/timbre preference, and avatar description or references. These are data, not a promise to reproduce an assistant's identity: implementing a voice engine or drawing an avatar remains the responsibility of a separate client.
+The portable profile for the user's usual AI assistant, LLM, or agent collects preferences for context, vocal tone, personality, behavior, instructions, and boundaries. It may include optional generic voice and avatar descriptions; future avatar images and animation preferences need an extension and compatibility design. Storing a preference does not implement speech synthesis, rendering, or animation: those functions belong to external clients. Memory remains independent of specific models, providers, and avatars.
 
 Personal voice notes are memories belonging to the user; timbre settings and a voice model describe the voice the assistant speaks with. They are distinct kinds of content. The current prototype does not store voice notes or voice models. Any future private media-asset integration belongs behind separately reviewed consent, rights, encryption, synchronization, and deletion boundaries. No asset is uploaded or used for training by this prototype.
 
@@ -37,11 +37,11 @@ Memory is searched on-device. For web lookups, the client previews the exact que
 ## Initial goals
 
 - A persistent, categorized local core.
-- AI preferences and personal voice notes stored locally under the user's control.
-- A portable profile for the assistant's personality and identity.
+- AI preferences and personal memories stored locally under the user's control.
+- A portable profile for the usual AI assistant, LLM, or agent: context, vocal tone, personality, behavior, instructions, and boundaries.
 - Transferable encrypted backup and multi-device encrypted sync after review.
 - Swappable adapters for local or remote models with explicit approval.
-- Optional, generic voice/avatar descriptions or external references; actual media processing stays with separate clients.
+- Optional generic voice/avatar descriptions, with future avatar images and animation preferences subject to an extension design; media processing stays with separate clients.
 - Local, reviewable import from different formats.
 
 The repository contains an experimental prototype; it has not been audited and must not be used with real personal data.

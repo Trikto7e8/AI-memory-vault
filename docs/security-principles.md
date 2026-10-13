@@ -39,3 +39,7 @@ The threat model must state which of these the product can mitigate and which it
 - Arrange independent review before making end-to-end encryption claims.
 
 These principles follow established guidance to start with a threat model, use vetted cryptography, and plan key generation, storage, distribution, rotation, recovery, and destruction. See [OWASP Cryptographic Storage](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html) and [OWASP Key Management](https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html).
+
+## Profile preferences and future assets
+
+Context, vocal tone, personality, and avatar-image or animation preferences may contain personal data. Treat them as user-controlled profile data. Future assets require separate encryption, provenance, consent, transfer, and deletion rules; they do not become public or get sent automatically to a model. The prototype does not store avatar images or animations as assets.

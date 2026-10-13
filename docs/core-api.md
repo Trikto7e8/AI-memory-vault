@@ -80,3 +80,9 @@ passphraseInput.value = "";
 - The context API can prepare local previews and issue grants that are bound to one adapter, expire after five minutes, and can be consumed once. No model adapter is connected by this prototype.
 - Locking drops the session's plaintext references, but JavaScript cannot guarantee process-memory erasure.
 - Do not use real personal data until the cryptography and client have been independently reviewed.
+
+## Portable profile and compatibility
+
+The portable profile for the user's usual AI assistant, LLM, or agent collects preferences for context, vocal tone, personality, behavior, instructions, and boundaries. It may include optional generic voice and avatar descriptions; future avatar images and animation preferences need an extension and compatibility design. Storing a preference does not implement speech synthesis, rendering, or animation: those functions belong to external clients. Memory remains independent of specific models, providers, and avatars.
+
+The current schema and runtime remain unchanged. Future avatar images and animation preferences are not newly available features: they require a versioned schema, validation, import/export, and compatible clients. Switching models preserves profile data; it does not guarantee identical behavior or voice from every model.

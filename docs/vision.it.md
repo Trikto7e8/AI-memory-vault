@@ -4,7 +4,7 @@
 
 ## Scopo
 
-AI Memory Vault è un progetto aperto per custodire, sotto il controllo dell’utente, preferenze relative all’IA, ricordi personali e note vocali, insieme alle impostazioni di voce, personalità e comportamento dell’assistente di IA che usa abitualmente. La memoria è progettata per funzionare localmente e accompagnare l’utente sui suoi dispositivi, senza dipendere dal modello scelto. L’utente potrà cambiare modello LLM/IA senza perdere i ricordi conservati né la confidenza costruita con il proprio assistente. La futura sincronizzazione è progettata per trasferire solo dati cifrati, in modo che il servizio di archiviazione non possa leggerne i contenuti; non è ancora implementata.
+AI Memory Vault è un progetto open source per custodire, sotto il controllo dell’utente, preferenze relative all’IA e ricordi personali, insieme alle impostazioni di voce, personalità e comportamento dell’assistente di IA che usa abitualmente. La memoria è progettata per funzionare localmente e accompagnare l’utente sui suoi dispositivi, senza dipendere dal modello scelto. L’utente potrà cambiare modello di IA/LLM senza perdere i ricordi custoditi né la confidenza costruita con il proprio assistente. La futura sincronizzazione è progettata per trasferire solo dati cifrati, in modo che il servizio di archiviazione non possa leggerne i contenuti; la sincronizzazione automatica non è ancora implementata.
 
 La prova centrale è semplice: salvo un progetto e le mie preferenze, apro una nuova sessione su un altro dispositivo e con un altro modello, ritrovo il contesto pertinente e posso verificare, correggere o cancellare ciò che è stato recuperato.
 
@@ -20,7 +20,7 @@ Le categorie servono a organizzare, non a costruire profili nascosti: progetti, 
 
 ## Metadati facoltativi del profilo client
 
-Il profilo facoltativo può conservare campi descrittivi come nome, personalità, stile, preferenza vocale/timbro e descrizione o riferimenti dell'avatar. Sono dati, non una promessa di riprodurre l'identità di un assistente: implementare un motore vocale o disegnare un avatar spetta a un client separato.
+Il profilo portatile dell’assistente IA, LLM o agente abitualmente usato raccoglie preferenze di contesto, tono vocale, personalità, comportamento, istruzioni e limiti. Può includere descrizioni generiche e facoltative relative alla voce e all’avatar; immagini dell’avatar e preferenze di animazione future richiedono un progetto di estensione e compatibilità. Conservare una preferenza non significa implementare sintesi vocale, rendering o animazioni: queste funzioni spettano ai client esterni. La memoria resta indipendente da modelli, fornitori e avatar specifici.
 
 Le note vocali personali sono ricordi dell’utente; le impostazioni di timbro e il modello vocale descrivono invece la voce con cui parla l’assistente. Sono contenuti distinti. Il prototipo attuale non archivia note vocali né modelli vocali. Eventuali integrazioni future di asset multimediali privati richiedono confini dedicati e revisionati per consenso, diritti, cifratura, sincronizzazione e cancellazione. Il prototipo non carica né usa asset per l'addestramento.
 
@@ -37,11 +37,11 @@ La memoria viene cercata sul dispositivo. Per interrogare il web, il client most
 ## Obiettivi iniziali
 
 - Un nucleo locale persistente e categorizzato.
-- Preferenze IA e note vocali personali conservate localmente e sotto il controllo dell’utente.
-- Un profilo portatile di personalità e identità dell'assistente.
+- Preferenze IA e ricordi personali conservati localmente e sotto il controllo dell’utente.
+- Un profilo portatile dell’assistente IA, LLM o agente abitualmente usato: contesto, tono vocale, personalità, comportamento, istruzioni e limiti.
 - Backup cifrato trasferibile e sync cifrata multi-dispositivo dopo revisione.
 - Adattatori intercambiabili per modelli locali o remoti con approvazione esplicita.
-- Descrizioni o riferimenti esterni generici e facoltativi per voce/avatar; l'elaborazione multimediale resta a client separati.
+- Descrizioni generiche e facoltative per voce/avatar; immagini dell’avatar e preferenze di animazione future richiedono un progetto di estensione. L’elaborazione multimediale resta ai client separati.
 - Importazione locale e revisionabile da diversi formati.
 
 Il repository contiene un prototipo sperimentale; non è stato sottoposto ad audit e non va usato con dati personali reali.

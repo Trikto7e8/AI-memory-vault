@@ -1,16 +1,16 @@
 # AI Memory Vault
 
-**Personal, portable memory for your AI assistant.**
+**The personal, portable memory of your AI assistant.**
 
 [English](README.md) | [Italiano](README.it.md)
 
-AI Memory Vault is an open-source project for keeping, under the user's control, AI preferences, personal memories, and voice notes, together with voice, personality, and behavior settings for the AI assistant they usually use. The memory is designed to work locally and travel with the user across devices, independently of the selected model. Users should be able to switch AI/LLM models without losing the memories kept in the vault or the sense of familiarity they have built with their assistant. Future synchronization is designed to transfer encrypted data only, so the storage service cannot read its contents; automatic synchronization is not implemented yet.
+AI Memory Vault is an open-source project for keeping AI preferences and personal memories under the user's control, together with voice, personality, and behavior settings for the AI assistant they usually use. The memory is designed to work locally and accompany users across their devices, independently of the selected model. Users should be able to switch AI/LLM models without losing the memories in their vault or the familiarity they have built with their assistant. Future synchronization is designed to transfer encrypted data only, so the storage service cannot read its contents; automatic synchronization is not implemented yet.
 
 > The repository includes an experimental local prototype that has not been reviewed or audited. Use synthetic data only; do not enter real personal data.
 
 ## Help build Memory Vault across platforms
 
-AI Memory Vault is an independent memory project: no avatar, assistant brand, model, or provider is required. The goal is user-controlled memory across Android phones and tablets, iPhone/iPad, Windows PCs, macOS, Linux, and compatible browsers.
+AI Memory Vault is an independent, local memory project designed to stay with the user and, in the future, synchronize across their devices. The goal is user-controlled memory on Android phones and tablets, iPhone/iPad, Windows PCs, macOS, Linux, and compatible browsers.
 
 **These are development targets, not a claim of tested support.** Today this repository contains a local browser prototype and reusable memory core. Native apps, store packages, automatic encrypted sync, and production-ready integrations remain work to do.
 
@@ -18,9 +18,9 @@ We welcome developers, device testers, accessibility contributors, translators, 
 
 ## What we want to build
 
-- User-curated, categorized personal memory, including AI preferences and personal voice notes.
+- User-curated, categorized personal memory with AI preferences: context, vocal tone, personality and, in the future, avatar images and animations.
 - The ability to change AI/LLM models without losing the memory or the sense of familiarity built with the assistant.
-- A portable profile for the assistant the user usually works with: recognizable voice, personality, behavior, instructions, boundaries, and preferences.
+- A portable profile for the AI assistant, LLM, or agent the user usually works with: recognizable voice, personality, behavior, instructions, boundaries, and preferences.
 - Optional, generic profile descriptions (including voice and avatar preferences) that other applications may read; voice synthesis, avatar rendering, and interaction belong to those applications.
 - A format independent of models and providers, for local, free, or commercial models.
 - Cross-device synchronization with end-to-end encryption, explicit device enrollment, and private keys kept under the user's control.
@@ -31,7 +31,7 @@ We welcome developers, device testers, accessibility contributors, translators, 
 
 ## Scope: a memory vault, not an assistant application
 
-AI Memory Vault is a **standalone, model- and brand-neutral memory component**. It stores and exports user-approved memories and optional preference metadata; it does not implement a mobile assistant, an on-screen avatar, speech synthesis, voice cloning, or a conversational UI connected to an LLM. These are separate client applications and may integrate with the vault only through explicit interfaces and consent. No particular assistant or character is required to use this project.
+AI Memory Vault is a **standalone, model- and brand-neutral memory component**. It stores and exports user-approved memories and optional preference metadata.
 
 ## Privacy and assistant identity
 

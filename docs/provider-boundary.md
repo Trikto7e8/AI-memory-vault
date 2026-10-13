@@ -42,3 +42,9 @@ Each authorized device must have distinct key pairs for encryption and signing. 
 ## Limits
 
 An unlocked device, compromised operating system, malicious app, or hostile extension can expose plaintext. Do not claim end-to-end protection for features that are not implemented and reviewed.
+
+## Portable profile and compatibility
+
+The portable profile for the user's usual AI assistant, LLM, or agent collects preferences for context, vocal tone, personality, behavior, instructions, and boundaries. It may include optional generic voice and avatar descriptions; future avatar images and animation preferences need an extension and compatibility design. Storing a preference does not implement speech synthesis, rendering, or animation: those functions belong to external clients. Memory remains independent of specific models, providers, and avatars.
+
+The current schema and runtime remain unchanged. Future avatar images and animation preferences are not newly available features: they require a versioned schema, validation, import/export, and compatible clients. Switching models preserves profile data; it does not guarantee identical behavior or voice from every model.

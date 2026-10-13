@@ -7,7 +7,7 @@ Queste note definiscono una direzione da implementare e revisionare; non sono un
 ## Aree separate ma portabili
 
 1. **Memoria personale:** ricordi testuali categorizzati e, in futuro, note vocali personali con provenienza, date, sensibilità e scadenza.
-2. **Profilo dell'assistente abitualmente usato:** preferenze IA e impostazioni di nome, personalità, comportamento, istruzioni, limiti, voce/timbro e avatar.
+2. **Profilo portatile dell’assistente IA, LLM o agente abitualmente usato:** preferenze IA di contesto, tono vocale, nome, personalità, comportamento, istruzioni, limiti e descrizioni facoltative di voce/avatar. Immagini dell’avatar e preferenze di animazione future richiedono un’estensione versionata.
 3. **Vault e chiavi:** cifratura locale, sblocco, backup, recupero, associazione dei dispositivi e sincronizzazione.
 4. **Adattatori:** interfacce verso diversi modelli AI, motori vocali, ricerca e client mobili.
 
@@ -17,7 +17,7 @@ Tutte le aree devono poter essere usate senza dipendere da un solo assistente o 
 
 Il profilo dell'assistente viaggia con la memoria e descrive personalità, comportamento e identità. Le note vocali personali sono ricordi dell'utente; non vanno confuse con le impostazioni della voce con cui parla l'assistente. Per quest'ultima, salvare preferenze descrittive (timbro, accento, ritmo) e identificativi stabili che un motore compatibile possa riutilizzare. Se serve lo stesso timbro su motori o dispositivi diversi, il modello vocale deve essere trattato come un asset privato separato, cifrato e trasferibile solo con il consenso dell'utente. Le descrizioni e gli ID non garantiscono da soli la riproduzione identica.
 
-Nome, descrizione e asset dell'avatar seguono lo stesso principio. Foto, modelli vocali e altri asset non sono ricordi testuali e non vanno inseriti in issue, esempi o commit pubblici. La clonazione è facoltativa e richiede diritti e consenso specifici della persona rappresentata.
+Nome, descrizione e future immagini o animazioni dell’avatar seguono lo stesso principio. Foto, modelli vocali e altri asset non sono ricordi testuali e non vanno inseriti in issue, esempi o commit pubblici. La clonazione è facoltativa e richiede diritti e consenso specifici della persona rappresentata.
 
 ## Chiavi pubbliche/private e passphrase
 

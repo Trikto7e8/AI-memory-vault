@@ -20,6 +20,15 @@ This roadmap tracks development of a portable, assistant-independent memory vaul
 - [ ] Local, reviewable, multi-format conversation importer.
 - [ ] Specify optional external media-asset references and their consent/security boundaries; actual voice models and avatar implementation belong to separate clients.
 
+## Assistant profile continuity
+
+The portable profile for the user's usual AI assistant, LLM, or agent collects preferences for context, vocal tone, personality, behavior, instructions, and boundaries. It may include optional generic voice and avatar descriptions; future avatar images and animation preferences need an extension and compatibility design. Storing a preference does not implement speech synthesis, rendering, or animation: those functions belong to external clients. Memory remains independent of specific models, providers, and avatars.
+
+- [ ] Specify context and vocal tone alongside personality preferences.
+- [ ] Design versioned metadata for future avatar images and animations, separate from media assets.
+- [ ] Verify that model changes and export/import preserve approved data and report preferences unsupported by a client.
+- [ ] Keep automatic encrypted synchronization marked as planned until implemented and verified.
+
 ## Milestones
 
 ### 1. Portable memory and optional profile metadata

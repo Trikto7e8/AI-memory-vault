@@ -39,3 +39,7 @@ Il modello delle minacce deve spiegare quali di questi rischi il prodotto può r
 - Organizzare una revisione indipendente prima di dichiarare la cifratura end-to-end.
 
 Questi principi seguono indicazioni consolidate: partire dal modello delle minacce, usare crittografia verificata e pianificare generazione, archiviazione, distribuzione, rotazione, recupero e distruzione delle chiavi. Vedi [OWASP Cryptographic Storage](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html) e [OWASP Key Management](https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html).
+
+## Preferenze e asset futuri del profilo
+
+Contesto, tono vocale, personalità e preferenze per immagini dell’avatar o animazioni possono contenere dati personali. Trattarli come dati del profilo sotto il controllo dell’utente. Gli asset futuri richiedono regole distinte di cifratura, provenienza, consenso, trasferimento ed eliminazione; non diventano pubblici né vengono inviati automaticamente a un modello. Il prototipo non archivia immagini dell’avatar o animazioni come asset.

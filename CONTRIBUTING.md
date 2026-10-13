@@ -17,3 +17,7 @@ The project uses the Apache License 2.0. See the [vision](docs/vision.md), [arch
 ## Find a contribution
 
 Start with the [platform plan](docs/platforms.md) and open help-wanted issues. Android, iOS/iPadOS, Windows, macOS, Linux, browser accessibility, import/export and security review all need contributors. Comment on the matching issue with your proposed scope and test environment; no personal contact information is required. Keep English and Italian documentation aligned. Use synthetic fixtures only. Platform support requires reproducible results. Memory Vault must stay independent of every avatar, assistant product and model.
+
+## Consistent portable preferences
+
+Proposals must preserve memories and preferences for the user's usual AI assistant, LLM, or agent: context, vocal tone, personality, behavior, instructions, and boundaries. Future avatar image and animation preferences require a versioned design and compatibility tests; rendering and synthesis stay with clients. Always distinguish descriptive data, assets, and operational features.

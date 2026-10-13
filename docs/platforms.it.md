@@ -43,3 +43,9 @@ Il trasferimento di backup prova la portabilità manuale, non la sincronizzazion
 5. Note audio personali cifrate e metadati facoltativi delle preferenze separati dai motori multimediali.
 
 Il prototipo resta sperimentale e senza audit indipendente. Un traguardo richiede prove pubblicate, non solo una build riuscita. Vedi [roadmap](roadmap.it.md) e [contributi](../CONTRIBUTING.it.md).
+
+## Continuità tra dispositivi
+
+Il profilo portatile dell’assistente IA, LLM o agente abitualmente usato raccoglie preferenze di contesto, tono vocale, personalità, comportamento, istruzioni e limiti. Può includere descrizioni generiche e facoltative relative alla voce e all’avatar; immagini dell’avatar e preferenze di animazione future richiedono un progetto di estensione e compatibilità. Conservare una preferenza non significa implementare sintesi vocale, rendering o animazioni: queste funzioni spettano ai client esterni. La memoria resta indipendente da modelli, fornitori e avatar specifici.
+
+L’obiettivo è accompagnare sempre l’utente, con una futura sincronizzazione cifrata tra dispositivi autorizzati. Oggi il trasferimento avviene tramite backup manuale cifrato. Le prove multipiattaforma devono verificare la conservazione dei ricordi e dei campi del profilo già supportati, senza dichiarare operative le future immagini o animazioni.

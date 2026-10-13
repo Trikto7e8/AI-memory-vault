@@ -25,3 +25,9 @@ The portable profile stores timbre separately from accent and pronunciation pref
 - Allow revocation and asset deletion, and clearly state that copies already downloaded or received by a service cannot be recalled.
 
 The optional TypeScript consent contract is in `src/voice/`. It does not implement an engine or provide avatar rendering. The gate requires a short-lived, single-use consent bound to the engine, selected sample, language, voice description, and processing location. Any attempt to consume the consent spends it, including a target mismatch; retrying requires a new explicit confirmation. No engine is connected.
+
+## Portable profile and compatibility
+
+The portable profile for the user's usual AI assistant, LLM, or agent collects preferences for context, vocal tone, personality, behavior, instructions, and boundaries. It may include optional generic voice and avatar descriptions; future avatar images and animation preferences need an extension and compatibility design. Storing a preference does not implement speech synthesis, rendering, or animation: those functions belong to external clients. Memory remains independent of specific models, providers, and avatars.
+
+The current schema and runtime remain unchanged. Future avatar images and animation preferences are not newly available features: they require a versioned schema, validation, import/export, and compatible clients. Switching models preserves profile data; it does not guarantee identical behavior or voice from every model.
