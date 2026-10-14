@@ -4,6 +4,12 @@
 
 [English](README.md) | [Italiano](README.it.md)
 
+![AI Memory Vault: personal memory carried across devices](assets/memory-vault-cover.png)
+
+<p align="center"><strong>One personal memory. Your devices. Your choice of AI.</strong></p>
+
+<p align="center"><a href="docs/platforms.md">Explore the platform plan</a> · <a href="https://github.com/Trikto7e8/AI-memory-vault/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22">Find a way to help</a> · <a href="https://github.com/Trikto7e8/AI-memory-vault/discussions">Join the discussion</a> · <a href="CONTRIBUTING.md">Contribute</a></p>
+
 AI Memory Vault is an open-source project for keeping AI preferences and personal memories under the user's control, together with voice, personality, and behavior settings for the AI assistant they usually use. The memory is designed to work locally and accompany users across their devices, independently of the selected model. Users should be able to switch AI/LLM models without losing the memories in their vault or the familiarity they have built with their assistant. Future synchronization is designed to transfer encrypted data only, so the storage service cannot read its contents; automatic synchronization is not implemented yet.
 
 > The repository includes an experimental local prototype that has not been reviewed or audited. Use synthetic data only; do not enter real personal data.
